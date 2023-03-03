@@ -5,6 +5,7 @@
         <attribute name="notes" optional="YES" attributeType="String"/>
         <attribute name="time" attributeType="Date" defaultDateTimeInterval="697812840" usesScalarValueType="NO"/>
         <attribute name="type" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="wasAccident" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <relationship name="pet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Pet" inverseName="eliminations" inverseEntity="Pet"/>
     </entity>
     <entity name="Household" representedClassName="Household" isAbstract="YES" syncable="YES" codeGenerationType="class">
