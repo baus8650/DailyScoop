@@ -15,11 +15,17 @@ struct EliminationCalendarView: View {
     var stack = CoreDataStack.shared
     var body: some View {
         VStack(spacing: 0) {
-            CalendarView(interval: DateInterval(start: .distantPast, end: .distantFuture), pet: pet, dateSelected: $dateSelected, shouldDisplayEliminations: $shouldDisplayEliminations)
-                .padding(.horizontal, 8)
-                .padding(.bottom, 0)
-            if shouldDisplayEliminations {
-                    DaySpecificEliminationsView(pet: pet, dateSelected: $dateSelected)
+            if !shouldDisplayEliminations {
+                ScrollView {
+                    CalendarView(interval: DateInterval(start: .distantPast, end: .distantFuture), pet: pet, dateSelected: $dateSelected, shouldDisplayEliminations: $shouldDisplayEliminations)
+                        .padding(.horizontal, 8)
+                        .padding(.bottom, 0)
+                }
+            } else {
+                CalendarView(interval: DateInterval(start: .distantPast, end: .distantFuture), pet: pet, dateSelected: $dateSelected, shouldDisplayEliminations: $shouldDisplayEliminations)
+                    .padding(.horizontal, 8)
+                    .padding(.bottom, 0)
+                DaySpecificEliminationsView(pet: pet, dateSelected: $dateSelected)
             }
         }
     }

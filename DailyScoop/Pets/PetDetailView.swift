@@ -13,32 +13,16 @@ struct PetDetailView: View {
     @State var shouldPresentAddEliminationView: Bool = false
     @State var showEditPetView: Bool = false
     var body: some View {
-                ScrollView {
+        //                ScrollView {
         VStack(spacing: 12) {
-            HStack {
-                if let imageData = pet.picture, let image = UIImage(data: imageData) {
-                    Image(uiImage: image)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 80)
-                        .cornerRadius(8)
-                }
-                VStack {
-                    Text("\(Gender(rawValue: pet.gender)!.description)")
-                    Text(calculateYearsOld(with: pet.birthday ?? Date()))
-                        .padding(.bottom, 8)
-                }
-                Spacer()
-            }
-            .padding(.horizontal, 20)
             Section {
                 EliminationCalendarView(pet: pet)
-                    .padding(.horizontal, 8)
+//                    .padding(.horizontal, 8)
             } header: {
                 HStack(alignment: .center) {
-                    Spacer()
                     Text("Eliminations")
                         .font(.title)
+                        .fontWeight(.bold)
                     Spacer()
                     Button {
                         shouldPresentAddEliminationView.toggle()
@@ -49,7 +33,7 @@ struct PetDetailView: View {
                         AddEliminationView(pet: pet)
                     }
                 }
-                .padding(.horizontal, 24)
+//                .padding(.horizontal, 24)
             }
             
         }
@@ -67,17 +51,8 @@ struct PetDetailView: View {
                 }
                 
             }
-                    }
         }
-    }
-    
-    private func calculateYearsOld(with birthday: Date) -> String {
-        let ageComponents = Calendar.current.dateComponents([.year, .month], from: birthday, to: .now)
-        if ageComponents.year! == 0 {
-            return "\(ageComponents.month!) months old"
-        } else {
-            return "\(ageComponents.year!) years old"
-        }
+        //        }
     }
 }
 //

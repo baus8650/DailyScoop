@@ -36,8 +36,13 @@ struct HouseholdDetailView: View {
                                             .frame(width: 100)
                                             .cornerRadius(8)
                                     }
-                                    Text(pet.name ?? "")
-                                        .font(.headline)
+                                    VStack(alignment: .leading) {
+                                        Text(pet.name ?? "")
+                                            .font(.headline)
+                                        Text("\(Gender(rawValue: pet.gender)!.description)")
+                                        Text(calculateYearsOld(with: pet.birthday ?? Date()))
+                                            .padding(.bottom, 8)
+                                    }
                                 }
                             }
                             .swipeActions(edge: .leading, allowsFullSwipe: false, content: {
@@ -158,6 +163,15 @@ struct HouseholdDetailView: View {
     
     private func recordAccident(pet: Pet) {
         
+    }
+    
+    private func calculateYearsOld(with birthday: Date) -> String {
+        let ageComponents = Calendar.current.dateComponents([.year, .month], from: birthday, to: .now)
+        if ageComponents.year! == 0 {
+            return "\(ageComponents.month!) months old"
+        } else {
+            return "\(ageComponents.year!) years old"
+        }
     }
 }
 

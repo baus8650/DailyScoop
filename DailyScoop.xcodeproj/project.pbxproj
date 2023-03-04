@@ -32,6 +32,7 @@
 		226B20882997C572008852B4 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226B20872997C572008852B4 /* ImagePicker.swift */; };
 		226B208A2997C89E008852B4 /* PetDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226B20892997C89E008852B4 /* PetDetailView.swift */; };
 		226B208C2997D117008852B4 /* AddEliminationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226B208B2997D117008852B4 /* AddEliminationView.swift */; };
+		22CC81AD29B18FFA0074E7F3 /* EditEliminationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC81AC29B18FFA0074E7F3 /* EditEliminationView.swift */; };
 		22FAFF05299949D700E836A6 /* EliminationCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FAFF04299949D700E836A6 /* EliminationCellView.swift */; };
 /* End PBXBuildFile section */
 
@@ -84,6 +85,7 @@
 		226B20872997C572008852B4 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		226B20892997C89E008852B4 /* PetDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetDetailView.swift; sourceTree = "<group>"; };
 		226B208B2997D117008852B4 /* AddEliminationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEliminationView.swift; sourceTree = "<group>"; };
+		22CC81AC29B18FFA0074E7F3 /* EditEliminationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEliminationView.swift; sourceTree = "<group>"; };
 		22FAFF04299949D700E836A6 /* EliminationCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EliminationCellView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -116,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				22073393299816770018AF8E /* Views */,
+				22CC81AC29B18FFA0074E7F3 /* EditEliminationView.swift */,
 			);
 			path = Households;
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 				220733992998764D0018AF8E /* AppDelegate.swift in Sources */,
 				226B20532997AC3F008852B4 /* Persistence.swift in Sources */,
 				226B204C2997AC3E008852B4 /* ContentView.swift in Sources */,
+				22CC81AD29B18FFA0074E7F3 /* EditEliminationView.swift in Sources */,
 				220733972998183B0018AF8E /* HouseholdDetailView.swift in Sources */,
 				226B20882997C572008852B4 /* ImagePicker.swift in Sources */,
 				220733A2299915F80018AF8E /* EditPetView.swift in Sources */,
