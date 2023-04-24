@@ -12,6 +12,7 @@ struct EliminationCalendarView: View {
     @State private var dateSelected: DateComponents?
     @State private var shouldDisplayEliminations: Bool = false
     
+    
     var stack = CoreDataStack.shared
     var body: some View {
         VStack(spacing: 0) {
@@ -19,8 +20,10 @@ struct EliminationCalendarView: View {
                 .padding(.horizontal, 8)
                 .padding(.bottom, 0)
             if shouldDisplayEliminations {
-                    DaySpecificEliminationsView(pet: pet, dateSelected: $dateSelected)
+                DaySpecificEliminationsView(pet: pet, dateSelected: $dateSelected)
+                    .padding(.top, -16)
             }
+            Spacer()
         }
     }
     

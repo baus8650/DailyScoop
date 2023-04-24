@@ -5,84 +5,59 @@
 //  Created by Tim Bausch on 2/11/23.
 //
 
+import Charts
 import SwiftUI
 
 struct PetDetailView: View {
     @ObservedObject var pet: Pet
-    private let stack = CoreDataStack.shared
-    @State var shouldPresentAddEliminationView: Bool = false
-    @State var showEditPetView: Bool = false
+    @Binding var showEditPetView: Bool
+    
     var body: some View {
-                ScrollView {
-        VStack(spacing: 12) {
+        VStack {
             HStack {
+                Spacer()
                 if let imageData = pet.picture, let image = UIImage(data: imageData) {
                     Image(uiImage: image)
                         .resizable()
                         .scaledToFit()
-                        .frame(height: 80)
+                        .frame(height: 300)
                         .cornerRadius(8)
-                }
-                VStack {
-                    Text("\(Gender(rawValue: pet.gender)!.description)")
-                    Text(calculateYearsOld(with: pet.birthday ?? Date()))
-                        .padding(.bottom, 8)
                 }
                 Spacer()
             }
-            .padding(.horizontal, 20)
-            Section {
-                EliminationCalendarView(pet: pet)
-                    .padding(.horizontal, 8)
-            } header: {
-                HStack(alignment: .center) {
-                    Spacer()
-                    Text("Eliminations")
-                        .font(.title)
-                    Spacer()
-                    Button {
-                        shouldPresentAddEliminationView.toggle()
-                    } label: {
-                        Image(systemName: "plus")
-                    }
-                    .sheet(isPresented: $shouldPresentAddEliminationView) {
-                        AddEliminationView(pet: pet)
-                    }
-                }
-                .padding(.horizontal, 24)
+            VStack(alignment: .leading) {
+                Text("Gender: \(Gender(rawValue: pet.gender)!.description)")
+                Text("Age: \(calculateYearsOld(with: pet.birthday ?? Date()))")
+                Text("Weight: \(formatWeight(pet.weight)) lbs")
+                    .padding(.bottom, 8)
             }
-            
+            Spacer()
         }
+        .padding(.vertical)
         .sheet(isPresented: $showEditPetView, content: {
             EditPetView(pet: pet)
         })
-        .navigationTitle("\(pet.name!)")
-        .navigationBarTitleDisplayMode(.large)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    showEditPetView.toggle()
-                } label: {
-                    Text("Edit")
-                }
-                
-            }
-                    }
-        }
     }
     
     private func calculateYearsOld(with birthday: Date) -> String {
-        let ageComponents = Calendar.current.dateComponents([.year, .month], from: birthday, to: .now)
+        let beginningOfDay = Calendar.current.startOfDay(for: birthday)
+        let ageComponents = Calendar.current.dateComponents([.year, .month], from: beginningOfDay, to: .now)
         if ageComponents.year! == 0 {
-            return "\(ageComponents.month!) months old"
+            let formatString : String = NSLocalizedString("pet_age_months", comment: "Month string determined in Localized.stringsdict")
+            return String.localizedStringWithFormat(formatString, ageComponents.month!)
         } else {
-            return "\(ageComponents.year!) years old"
+            let formatString : String = NSLocalizedString("pet_age_years", comment: "Year string determined in Localized.stringsdict")
+            return String.localizedStringWithFormat(formatString, ageComponents.year!)
         }
     }
+    
+    func formatWeight(_ weight : Double) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.maximumFractionDigits = 2
+        
+        let number = NSNumber(value: weight)
+        let formattedValue = formatter.string(from: number) ?? "0"
+        return formattedValue
+    }
 }
-//
-//struct PetDetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        PetDetailView()
-//    }
-//}

@@ -5,13 +5,43 @@
 //  Created by Tim Bausch on 2/12/23.
 //
 
+import CoreData
 import Foundation
 import SwiftUI
 
 struct DaySpecificEliminationsView: View {
     @ObservedObject var pet: Pet
     @Binding var dateSelected: DateComponents?
+    @State var isShowingEditEliminationView: Bool = false
+    @FetchRequest var eliminations: FetchedResults<Elimination>
+    @State private var eliminationToEdit: Elimination?
     var stack = CoreDataStack.shared
+    
+    init(pet: Pet, dateSelected: Binding<DateComponents?>) {
+        self.pet = pet
+        
+        let selectedDate = Calendar.current.date(from: dateSelected.wrappedValue!)!
+        var dateComponents = DateComponents()
+        dateComponents.day = 1
+        dateComponents.second = -1
+        
+        let startOfDay = Calendar.current.startOfDay(for: selectedDate)
+        let endOfDay = Calendar.current.date(byAdding: dateComponents, to: startOfDay)
+        
+        let datePredicate = NSPredicate(format: "time >= %@ && time <= %@", startOfDay as CVarArg, endOfDay! as CVarArg)
+        let petPredicate = NSPredicate(format: "pet == %@", pet)
+        
+        let predicate = NSCompoundPredicate(type: .and, subpredicates: [datePredicate, petPredicate])
+        
+        _eliminations = FetchRequest(
+            entity: Elimination.entity(),
+            sortDescriptors: [
+                NSSortDescriptor(keyPath: \Elimination.time, ascending: false)
+            ],
+            predicate: predicate
+        )
+        self._dateSelected = dateSelected
+    }
     
     var body: some View {
         if let dateSelected {
@@ -20,33 +50,27 @@ struct DaySpecificEliminationsView: View {
                     .font(.title2)
                     .fontWeight(.medium)
                 VStack(alignment: .leading) {
-                    if let foundEliminations = pet.eliminations?.allObjects as? [Elimination] {
-                        let sortedEliminations = foundEliminations.sorted {
-                            $0.time! > $1.time!
-                        }
-                        let filteredEliminations = sortedEliminations.filter {
-                            Calendar.current.isDate($0.time!, equalTo: dateSelected.date!, toGranularity: .day)
-                        }
-                        //                    List {
-                        ForEach(filteredEliminations) { event in
-                            EliminationCellView(elimination: event, typeInt: event.type, wasAccident: event.wasAccident)
-                                .padding(.horizontal, 32)
-                        }
-                        
-                        //                    .navigationBarTitle(formatter(for: dateSelected.date!, with: false))
-                        //                    .navigationBarTitleDisplayMode(.large)
-                        //                    .toolbar {
-                        //                        ToolbarItem(placement: .navigationBarTrailing) {
-                        //                            Button {
-                        //
-                        //
-                        ////                                dateSelected = changeDate(from: dateSelected.date, byMoving: -1)
-                        //                            } label: {
-                        //                                Text("\(editDate(for: dateSelected.date!, distance: -1))")
-                        //                            }
-                        //                        }
-                        //                    }
+                    List(eliminations) { elimination in
+                        EliminationCellView(elimination: elimination)
+                            .swipeActions(edge: .trailing, allowsFullSwipe: true, content: {
+                                Button(role: .destructive) {
+                                    stack.delete(elimination)
+                                } label: {
+                                    Label("Delete", systemImage: "trash")
+                                }
+                            })
+                            .swipeActions(edge: .leading, allowsFullSwipe: false, content: {
+                                Button {
+                                    eliminationToEdit = elimination
+                                } label: {
+                                    Label("Edit", systemImage: "pencil")
+                                }
+                            })
+                            .sheet(item: $eliminationToEdit) { elimination in
+                                EditEliminationView(pet: pet, elimination: elimination)
+                            }
                     }
+                    .listStyle(.plain)
                 }
             }
         }

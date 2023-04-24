@@ -22,48 +22,53 @@ struct AddPetView: View {
     private let stack = CoreDataStack.shared
     
     var body: some View {
-        Form {
-            TextField("Name", text: $name)
-            DatePicker("Birthday", selection: $birthday, displayedComponents: [.date])
-                .datePickerStyle(.automatic)
-            Picker("Gender", selection: $gender) {
-                ForEach(Gender.allCases) { gender in
-                    Text(gender.description)
-                        .tag(gender)
+        NavigationView {
+            Form {
+                TextField("Name", text: $name)
+                DatePicker("Birthday", selection: $birthday, displayedComponents: [.date])
+                    .datePickerStyle(.automatic)
+                Picker("Gender", selection: $gender) {
+                    ForEach(Gender.allCases) { gender in
+                        Text(gender.description)
+                            .tag(gender)
+                    }
                 }
+                .pickerStyle(.segmented)
+                TextField("Weight", text: $weight)
+                    .keyboardType(.decimalPad)
+                if image == nil {
+                    Button {
+                        self.showingImagePicker = true
+                    } label: {
+                        Text("Choose a photo")
+                    }
+                }
+                image?
+                    .resizable()
+                    .scaledToFit()
+                HStack(spacing: 48) {
+                    Spacer()
+                    Button {
+                        savePet()
+                    } label: {
+                        Text("Save")
+                    }
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Cancel")
+                            .foregroundColor(.red)
+                    }
+                    Spacer()
+                }
+                
             }
-            .pickerStyle(.segmented)
-            TextField("Weight", text: $weight)
-                .keyboardType(.numberPad)
-            if image == nil {
-                Button {
-                    self.showingImagePicker = true
-                } label: {
-                    Text("Choose a photo")
-                }
+            .sheet(isPresented: $showingImagePicker, onDismiss: loadImage) {
+                ImagePicker(image: $inputImage)
             }
-            image?
-                .resizable()
-                .scaledToFit()
-            HStack(spacing: 48) {
-                Spacer()
-                Button {
-                    savePet()
-                } label: {
-                    Text("Save")
-                }
-                Button {
-                    dismiss()
-                } label: {
-                    Text("Cancel")
-                        .foregroundColor(.red)
-                }
-                Spacer()
-            }
-
-        }
-        .sheet(isPresented: $showingImagePicker, onDismiss: loadImage) {
-            ImagePicker(image: $inputImage)
+            .padding(.top, -30)
+            .navigationTitle("Add Pet")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
     
@@ -90,9 +95,3 @@ struct AddPetView: View {
         }
     }
 }
-
-//struct AddPetView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AddPetView()
-//    }
-//}
