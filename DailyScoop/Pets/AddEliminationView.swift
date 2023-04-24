@@ -16,48 +16,70 @@ struct AddEliminationView: View {
     @State var consistency: Double = 1
     @State var notes: String = ""
     @State var wasAccident: Bool = false
+    @State var showEmptyTypeAlert: Bool = false
     var stack = CoreDataStack.shared
     
     var body: some View {
-        Form {
-            DatePicker("Time", selection: $time)
-            Picker("Type", selection: $type) {
-                ForEach(EliminationType.allCases) { type in
-                    Text(type.description)
+        NavigationView {
+            VStack {
+            Form {
+                DatePicker("Time", selection: $time)
+                Picker("Type", selection: $type) {
+                    ForEach(EliminationType.allCases) { type in
+                        Text(type.description)
+                    }
+                }
+                Toggle(isOn: $wasAccident) {
+                    Text("Was this an accident?")
+                }
+                if type == .solid {
+                    Slider(value: $consistency, in: 1...5, step: 1) {
+                        Text("Consistency")
+                    } minimumValueLabel: {
+                        Text("Liquid")
+                    } maximumValueLabel: {
+                        Text("Solid")
+                    }
+                    .tint(.brown)
+                }
+                TextField("Additional notes:", text: $notes, axis: .vertical)
+                    .textFieldStyle(.roundedBorder)
+                    .lineLimit(5, reservesSpace: true)
+            }
+                HStack(spacing: 48) {
+                    Spacer()
+                    Button {
+                        if type != .none {
+                            saveElimination()
+                        } else {
+                            showEmptyTypeAlert = true
+                        }
+                    } label: {
+                        Text("Save")
+                    }
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Cancel")
+                            .foregroundColor(.red)
+                    }
+                    Spacer()
                 }
             }
-            Toggle(isOn: $wasAccident) {
-                Text("Was this an accident?")
-            }
-            if type == .solid {
-                Slider(value: $consistency, in: 1...5, step: 1) {
-                    Text("Consistency")
-                } minimumValueLabel: {
-                    Text("Liquid")
-                } maximumValueLabel: {
-                    Text("Solid")
-                }
-                .tint(.brown)
-            }
-            TextField("Additional notes:", text: $notes, axis: .vertical)
-                .textFieldStyle(.roundedBorder)
-                .lineLimit(5, reservesSpace: true)
-            HStack(spacing: 48) {
-                Spacer()
-                Button {
-                    saveElimination()
-                } label: {
-                    Text("Save")
-                }
-                Button {
-                    dismiss()
-                } label: {
-                    Text("Cancel")
-                        .foregroundColor(.red)
-                }
-                Spacer()
-            }
+            .padding(.top, -30)
+            .navigationTitle("Add Elimination")
+            .navigationBarTitleDisplayMode(.inline)
         }
+        .alert("No Type Selected", isPresented: $showEmptyTypeAlert) {
+            Button {
+                
+            } label: {
+                Text("Okay")
+            }
+        } message: {
+            Text("Please select an elimination type or dismiss the view.")
+        }
+
     }
     
     private func saveElimination() {

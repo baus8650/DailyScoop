@@ -10,10 +10,10 @@ import SwiftUI
 @main
 struct DailyScoopApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-
+    
     var body: some Scene {
         WindowGroup {
-        HouseholdListView()
+            HouseholdListView()
                 .environment(\.managedObjectContext, CoreDataStack.shared.context)
         }
     }

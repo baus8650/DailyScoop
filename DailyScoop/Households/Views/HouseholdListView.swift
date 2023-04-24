@@ -15,6 +15,8 @@ struct HouseholdListView: View {
     private let stack = CoreDataStack.shared
     @State var shouldShowAddHouseholdView: Bool = false
     @State private var share: CKShare?
+    @State var isShowingDeleteAlert: Bool = false
+    @State var selectedHousehold: Household?
     var body: some View {
         NavigationView {
             List {
@@ -43,15 +45,25 @@ struct HouseholdListView: View {
                     }
                     .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                         Button(role: .destructive) {
-                            stack.delete(household)
+                            selectedHousehold = household
+                            isShowingDeleteAlert.toggle()
                         } label: {
                             Label("Delete", systemImage: "trash")
                         }
                     }
                 }
             }
+            .alert("Delete Household?", isPresented: $isShowingDeleteAlert) {
+                Button("Delete", role: .destructive) {
+                    if let household = selectedHousehold {
+                        stack.delete(household)
+                        selectedHousehold = nil
+                    }
+                }
+            } message: {
+                Text("Are you sure you want to remove this household? This action cannot be undone and may affect other users linked with this household.")
+            }
             .navigationTitle("Households")
-            .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     EditButton()

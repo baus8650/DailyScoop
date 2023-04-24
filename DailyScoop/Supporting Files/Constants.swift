@@ -33,9 +33,9 @@ public enum EliminationType: Int16, CaseIterable, Identifiable {
         case .none:
             return "No Type Recorded"
         case .liquid:
-            return "Liquid"
+            return "Pee"
         case .solid:
-            return "Solid"
+            return "Poop"
         }
     }
 }
@@ -65,4 +65,17 @@ public enum Consistency: Int16, CaseIterable, Identifiable {
             return "Solid"
         }
     }
+}
+
+public enum SampleSize: String, CaseIterable {
+    case day = "D"
+    case week = "W"
+    case month = "M"
+    case sixMonths = "6M"
+    case year = "Y"
+}
+
+public enum GraphType: String, CaseIterable {
+    case bar = "Bar"
+    case line = "Line"
 }
