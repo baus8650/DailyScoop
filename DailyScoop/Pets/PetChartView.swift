@@ -37,12 +37,12 @@ struct PetChartView: View {
     var body: some View {
             VStack {
                 VStack {
-                    Picker("Graph Type", selection: $graphType) {
-                        ForEach(GraphType.allCases, id: \.self) {
-                            Text($0.rawValue)
-                        }
-                    }
-                    .pickerStyle(.segmented)
+//                    Picker("Graph Type", selection: $graphType) {
+//                        ForEach(GraphType.allCases, id: \.self) {
+//                            Text($0.rawValue)
+//                        }
+//                    }
+//                    .pickerStyle(.segmented)
                     Picker("Eliminations at a glance", selection: $sampleSize) {
                         ForEach(SampleSize.allCases, id: \.self) { size in
                             Text(size.rawValue)
