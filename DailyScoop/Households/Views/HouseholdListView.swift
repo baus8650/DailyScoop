@@ -17,6 +17,7 @@ struct HouseholdListView: View {
     @State private var share: CKShare?
     @State var isShowingDeleteAlert: Bool = false
     @State var selectedHousehold: Household?
+    
     var body: some View {
         NavigationView {
             List {
@@ -53,6 +54,9 @@ struct HouseholdListView: View {
                     }
                 }
             }
+            .onAppear {
+                sendHouseholdsToDefaults()
+            }
             .alert("Delete Household?", isPresented: $isShowingDeleteAlert) {
                 Button("Delete", role: .destructive) {
                     if let household = selectedHousehold {
@@ -81,6 +85,14 @@ struct HouseholdListView: View {
                 }
             }
         }
+    }
+    
+    func sendHouseholdsToDefaults() {
+        let householdNames = households.map {
+            $0.name!
+        }
+        Utilities.writeHouseholdsToDefaults(householdNames)
+        print("HOUSEHOLDS \(Utilities.readHouseholdsFromDefaults())")
     }
 }
 
