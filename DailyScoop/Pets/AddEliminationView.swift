@@ -54,6 +54,7 @@ struct AddEliminationView: View {
                         } else {
                             showEmptyTypeAlert = true
                         }
+                        dismiss()
                     } label: {
                         Text("Save")
                     }
