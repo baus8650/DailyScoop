@@ -23,45 +23,46 @@ struct AddPetView: View {
     
     var body: some View {
         NavigationView {
-            Form {
-                TextField("Name", text: $name)
-                DatePicker("Birthday", selection: $birthday, displayedComponents: [.date])
-                    .datePickerStyle(.automatic)
-                Picker("Gender", selection: $gender) {
-                    ForEach(Gender.allCases) { gender in
-                        Text(gender.description)
-                            .tag(gender)
+            VStack {
+                Form {
+                    TextField("Name", text: $name)
+                    DatePicker("Birthday", selection: $birthday, displayedComponents: [.date])
+                        .datePickerStyle(.automatic)
+                    Picker("Gender", selection: $gender) {
+                        ForEach(Gender.allCases) { gender in
+                            Text(gender.description)
+                                .tag(gender)
+                        }
                     }
-                }
-                .pickerStyle(.segmented)
-                TextField("Weight", text: $weight)
-                    .keyboardType(.decimalPad)
-                if image == nil {
-                    Button {
-                        self.showingImagePicker = true
-                    } label: {
-                        Text("Choose a photo")
+                    .pickerStyle(.segmented)
+                    TextField("Weight", text: $weight)
+                        .keyboardType(.decimalPad)
+                    if image == nil {
+                        Button {
+                            self.showingImagePicker = true
+                        } label: {
+                            Text("Choose a photo")
+                        }
                     }
+                    image?
+                        .resizable()
+                        .scaledToFit()
                 }
-                image?
-                    .resizable()
-                    .scaledToFit()
                 HStack(spacing: 48) {
-                    Spacer()
-                    Button {
-                        savePet()
-                    } label: {
-                        Text("Save")
-                    }
                     Button {
                         dismiss()
                     } label: {
                         Text("Cancel")
                             .foregroundColor(.red)
                     }
-                    Spacer()
+                    Button {
+                        savePet()
+                        dismiss()
+                    } label: {
+                        Text("Save")
+                    }
                 }
-                
+                .padding(.bottom, 12)
             }
             .sheet(isPresented: $showingImagePicker, onDismiss: loadImage) {
                 ImagePicker(image: $inputImage)
