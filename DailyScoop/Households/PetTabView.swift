@@ -15,7 +15,7 @@ struct PetTabView: View {
         TabView {
             PetChartView(pet: pet)
                 .tabItem {
-                    Label("Insights", systemImage: "chart.bar.xaxis")
+                    Label("Metrics", systemImage: "chart.bar.xaxis")
                 }
             EliminationCalendarView(pet: pet)
                 .tabItem {
