@@ -19,6 +19,7 @@ struct PetChartView: View {
     @State var eliminationData: [DataToPlot] = []
     @State var sampleSize: SampleSize = .day
     @State var graphType: GraphType = .bar
+    @State var grandTotals = GrandTotals()
     @FetchRequest var eliminations: FetchedResults<Elimination>
     
     init(pet: Pet) {
@@ -36,7 +37,7 @@ struct PetChartView: View {
     
     var body: some View {
             VStack {
-                VStack {
+                VStack(spacing: 16) {
 //                    Picker("Graph Type", selection: $graphType) {
 //                        ForEach(GraphType.allCases, id: \.self) {
 //                            Text($0.rawValue)
@@ -50,7 +51,12 @@ struct PetChartView: View {
                     }
                     .pickerStyle(.segmented)
                     .onChange(of: sampleSize) { newValue in
+                        grandTotals.rest()
                         processEliminationData(for: newValue)
+                    }
+                    .onChange(of: eliminations.count) { newValue in
+                        grandTotals.rest()
+                        processEliminationData(for: sampleSize)
                     }
                     HStack {
                         Chart {
@@ -81,7 +87,20 @@ struct PetChartView: View {
                             ]
                         )
                     }
-                    .padding(.top)
+                    .padding([.top, .bottom])
+                    Divider()
+                    VStack(spacing: 12) {
+                        Text("**Totals**")
+                            .font(.title2)
+                        HStack {
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("Pees: **\(grandTotals.pee)**")
+                                Text("Poops: **\(grandTotals.poop)**")
+                                Text("Accidents: **\(grandTotals.accident)**")
+                            }
+                            Spacer()
+                        }
+                    }
                 }
             }
             .onAppear {
@@ -154,16 +173,22 @@ struct PetChartView: View {
                 case 1:
                     if elimination.wasAccident {
                         localAccidentTotals += 1
+                        grandTotals.accident += 1
                         localPeeTotals += 1
+                        grandTotals.pee += 1
                     } else {
                         localPeeTotals += 1
+                        grandTotals.pee += 1
                     }
                 case 2:
                     if elimination.wasAccident {
                         localAccidentTotals += 1
+                        grandTotals.accident += 1
                         localPooTotals += 1
+                        grandTotals.poop += 1
                     } else {
                         localPooTotals += 1
+                        grandTotals.poop += 1
                     }
                 default:
                     print("Unrecognized elimination type")
@@ -204,4 +229,16 @@ enum EliminationChart: String, Plottable {
     case pee = "Pee"
     case poop = "Poop"
     case accident = "Accident"
+}
+
+struct GrandTotals {
+    var pee: Int = 0
+    var poop: Int = 0
+    var accident: Int = 0
+    
+    mutating func rest() {
+        pee = 0
+        poop = 0
+        accident = 0
+    }
 }

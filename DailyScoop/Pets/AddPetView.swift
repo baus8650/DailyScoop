@@ -18,6 +18,8 @@ struct AddPetView: View {
     @State var inputImage: UIImage?
     @State var image: Image?
     @State var showingImagePicker = false
+    @FocusState private var nameIsFocused: Bool
+    @FocusState private var weightIsFocused: Bool
     
     private let stack = CoreDataStack.shared
     
@@ -26,6 +28,8 @@ struct AddPetView: View {
             VStack {
                 Form {
                     TextField("Name", text: $name)
+                        .textInputAutocapitalization(.words)
+                        .focused($nameIsFocused)
                     DatePicker("Birthday", selection: $birthday, displayedComponents: [.date])
                         .datePickerStyle(.automatic)
                     Picker("Gender", selection: $gender) {
@@ -37,9 +41,13 @@ struct AddPetView: View {
                     .pickerStyle(.segmented)
                     TextField("Weight", text: $weight)
                         .keyboardType(.decimalPad)
+                        .focused($weightIsFocused)
                     if image == nil {
                         Button {
+                            nameIsFocused = false
+                            weightIsFocused = false
                             self.showingImagePicker = true
+                            
                         } label: {
                             Text("Choose a photo")
                         }
@@ -48,6 +56,7 @@ struct AddPetView: View {
                         .resizable()
                         .scaledToFit()
                 }
+                .scrollDismissesKeyboard(.immediately)
                 HStack(spacing: 48) {
                     Button {
                         dismiss()

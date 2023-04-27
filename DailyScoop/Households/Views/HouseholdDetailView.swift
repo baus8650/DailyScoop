@@ -24,7 +24,7 @@ struct HouseholdDetailView: View {
             VStack {
                 if household.pets?.count == 0 {
                     VStack(spacing: 24) {
-                        Text("No households have been added yet! Add a household by tapping the plus button at the top of the screen.")
+                        Text("No pets have been added yet!")
                             .font(.title3)
                             .fontWeight(.bold)
                             .multilineTextAlignment(.center)
@@ -104,8 +104,8 @@ struct HouseholdDetailView: View {
                                 }
                             }
                         }
-                        Text("**Swipe a pet for quick actions**")
-                            .font(.caption)
+                        Text("**Swipe a pet left or right for quick actions**")
+                            .font(.callout)
                     } header: {
                         Button {
                             shouldPresentAddPetView.toggle()
@@ -186,12 +186,19 @@ struct HouseholdDetailView: View {
     
     private func calculateYearsOld(with birthday: Date) -> String {
         let beginningOfDay = Calendar.current.startOfDay(for: birthday)
-        let ageComponents = Calendar.current.dateComponents([.year, .month], from: beginningOfDay, to: .now)
+        let ageComponents = Calendar.current.dateComponents([.year, .month, .day], from: beginningOfDay, to: .now)
+        print("TESTING \(ageComponents.year), month \(ageComponents.month), day \(ageComponents.day)")
         if ageComponents.year! == 0 {
-            let formatString : String = NSLocalizedString("pet_age_months", comment: "Month string determined in Localized.stringsdict")
-            return String.localizedStringWithFormat(formatString, ageComponents.month!)
+            if ageComponents.month! == 0 {
+                let formatString: String = NSLocalizedString("pet_age_days", comment: "Day string determined in Localized.stringsdict")
+                print("IN DAYS \(String.localizedStringWithFormat(formatString, ageComponents.day!))")
+                return String.localizedStringWithFormat(formatString, ageComponents.day!)
+            } else {
+                let formatString: String = NSLocalizedString("pet_age_months", comment: "Month string determined in Localized.stringsdict")
+                return String.localizedStringWithFormat(formatString, ageComponents.month!)
+            }
         } else {
-            let formatString : String = NSLocalizedString("pet_age_years", comment: "Year string determined in Localized.stringsdict")
+            let formatString: String = NSLocalizedString("pet_age_years", comment: "Year string determined in Localized.stringsdict")
             return String.localizedStringWithFormat(formatString, ageComponents.year!)
         }
     }

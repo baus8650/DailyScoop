@@ -15,6 +15,7 @@ struct AddHouseholdView: View {
     var body: some View {
         Form {
             TextField("Household name", text: $name)
+                .textInputAutocapitalization(.words)
             HStack(spacing: 48) {
                 Spacer()
                 Button {
