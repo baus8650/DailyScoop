@@ -47,6 +47,10 @@
 		223D980929F75722000432C4 /* WidgetModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223D980829F75722000432C4 /* WidgetModels.swift */; };
 		223D980A29F757FD000432C4 /* WidgetModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223D980829F75722000432C4 /* WidgetModels.swift */; };
 		223D980B29F757FD000432C4 /* WidgetModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223D980829F75722000432C4 /* WidgetModels.swift */; };
+		223D980D29FB3D8B000432C4 /* ConfirmationPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223D980C29FB3D8B000432C4 /* ConfirmationPopover.swift */; };
+		223D981129FB3E32000432C4 /* PoopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223D981029FB3E32000432C4 /* PoopView.swift */; };
+		223D981429FB5587000432C4 /* PeeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223D981329FB5587000432C4 /* PeeView.swift */; };
+		223D981629FB5A35000432C4 /* AccidentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223D981529FB5A35000432C4 /* AccidentView.swift */; };
 		2268A2B029B3F4BC00F220FA /* PetTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2268A2AF29B3F4BC00F220FA /* PetTabView.swift */; };
 		226B204A2997AC3E008852B4 /* DailyScoopApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226B20492997AC3E008852B4 /* DailyScoopApp.swift */; };
 		226B204E2997AC3F008852B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 226B204D2997AC3F008852B4 /* Assets.xcassets */; };
@@ -144,6 +148,10 @@
 		223D980229F750D2000432C4 /* DailyScoopIntents.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DailyScoopIntents.entitlements; sourceTree = "<group>"; };
 		223D980329F755C8000432C4 /* WidgetUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetUtilities.swift; sourceTree = "<group>"; };
 		223D980829F75722000432C4 /* WidgetModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetModels.swift; sourceTree = "<group>"; };
+		223D980C29FB3D8B000432C4 /* ConfirmationPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationPopover.swift; sourceTree = "<group>"; };
+		223D981029FB3E32000432C4 /* PoopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoopView.swift; sourceTree = "<group>"; };
+		223D981329FB5587000432C4 /* PeeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeeView.swift; sourceTree = "<group>"; };
+		223D981529FB5A35000432C4 /* AccidentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccidentView.swift; sourceTree = "<group>"; };
 		2268A2AF29B3F4BC00F220FA /* PetTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetTabView.swift; sourceTree = "<group>"; };
 		226B20462997AC3E008852B4 /* DailyScoop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyScoop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		226B20492997AC3E008852B4 /* DailyScoopApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyScoopApp.swift; sourceTree = "<group>"; };
@@ -292,6 +300,16 @@
 			path = "Widget Models";
 			sourceTree = "<group>";
 		};
+		223D980E29FB3DDB000432C4 /* Elimination Components */ = {
+			isa = PBXGroup;
+			children = (
+				223D981029FB3E32000432C4 /* PoopView.swift */,
+				223D981329FB5587000432C4 /* PeeView.swift */,
+				223D981529FB5A35000432C4 /* AccidentView.swift */,
+			);
+			path = "Elimination Components";
+			sourceTree = "<group>";
+		};
 		226B203D2997AC3E008852B4 = {
 			isa = PBXGroup;
 			children = (
@@ -322,6 +340,7 @@
 		226B20482997AC3E008852B4 /* DailyScoop */ = {
 			isa = PBXGroup;
 			children = (
+				223D980E29FB3DDB000432C4 /* Elimination Components */,
 				220733922998166E0018AF8E /* Households */,
 				226B20852997C1FF008852B4 /* Pets */,
 				226B207F2997B88D008852B4 /* Services */,
@@ -335,6 +354,7 @@
 				220733982998764D0018AF8E /* AppDelegate.swift */,
 				2207339A299904950018AF8E /* CalendarView.swift */,
 				222F93E029AAED460015307B /* ReportAccidentView.swift */,
+				223D980C29FB3D8B000432C4 /* ConfirmationPopover.swift */,
 			);
 			path = DailyScoop;
 			sourceTree = "<group>";
@@ -629,18 +649,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				223D980D29FB3D8B000432C4 /* ConfirmationPopover.swift in Sources */,
 				22073391299812C60018AF8E /* HouseholdListView.swift in Sources */,
 				226B20812997B8A3008852B4 /* CoreDataStack.swift in Sources */,
 				2207339B299904950018AF8E /* CalendarView.swift in Sources */,
 				223D97C129F609F3000432C4 /* PetChartView.swift in Sources */,
 				223D97F529F74737000432C4 /* Utilities.swift in Sources */,
 				223D980929F75722000432C4 /* WidgetModels.swift in Sources */,
+				223D981129FB3E32000432C4 /* PoopView.swift in Sources */,
 				220733A029990A2A0018AF8E /* DaySpecificEliminationsView.swift in Sources */,
 				226B208A2997C89E008852B4 /* PetDetailView.swift in Sources */,
 				220733992998764D0018AF8E /* AppDelegate.swift in Sources */,
 				223D980429F755C8000432C4 /* WidgetUtilities.swift in Sources */,
 				223D97D629F743C8000432C4 /* DailyScoopWidget.intentdefinition in Sources */,
 				226B20532997AC3F008852B4 /* Persistence.swift in Sources */,
+				223D981629FB5A35000432C4 /* AccidentView.swift in Sources */,
 				22CC81AD29B18FFA0074E7F3 /* EditEliminationView.swift in Sources */,
 				220733972998183B0018AF8E /* HouseholdDetailView.swift in Sources */,
 				223D97F129F74653000432C4 /* IntentHandler.swift in Sources */,
@@ -656,6 +679,7 @@
 				226B207E2997B1D7008852B4 /* Constants.swift in Sources */,
 				2268A2B029B3F4BC00F220FA /* PetTabView.swift in Sources */,
 				2207339E299905210018AF8E /* EliminationCalendarView.swift in Sources */,
+				223D981429FB5587000432C4 /* PeeView.swift in Sources */,
 				22073395299816860018AF8E /* AddHouseholdView.swift in Sources */,
 				223D97F929F747E1000432C4 /* WidgetConstants.swift in Sources */,
 			);
