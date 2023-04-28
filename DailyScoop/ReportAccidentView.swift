@@ -10,6 +10,7 @@ import SwiftUI
 struct ReportAccidentView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.managedObjectContext) var managedObjectContext
+    @Binding var confirmation: Bool
     private let stack = CoreDataStack.shared
     var pet: Pet
     @State var time: Date = Date()
@@ -27,6 +28,7 @@ struct ReportAccidentView: View {
                 VStack(spacing: 16) {
                     Button {
                         recordAccidentPee(pet: pet)
+                        confirmation = true
                         dismiss()
                     } label: {
                         Text("\(pet.gender == 0 ? "She" : "He") peed.")
@@ -41,6 +43,7 @@ struct ReportAccidentView: View {
                     
                     Button {
                         recordAccidentPoop(pet: pet)
+                        confirmation = true
                         dismiss()
                     } label: {
                         Text("\(pet.gender == 0 ? "She" : "He") pooped.")
