@@ -158,7 +158,9 @@ struct PetChartView: View {
     func processEliminations(eliminationsDict: [DateComponents: [Elimination]]) -> [DataToPlot] {
         
         var localEliminationData = [DataToPlot]()
-        
+        grandTotals.pee = 0
+        grandTotals.poop = 0
+        grandTotals.accident = 0
         for (key, value) in eliminationsDict {
             peeEntries = []
             pooEntries = []

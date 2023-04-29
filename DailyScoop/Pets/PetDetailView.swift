@@ -13,30 +13,31 @@ struct PetDetailView: View {
     @Binding var showEditPetView: Bool
     
     var body: some View {
-        VStack {
+        VStack(spacing: 24) {
             HStack {
                 Spacer()
                 if let imageData = pet.picture, let image = UIImage(data: imageData) {
                     Image(uiImage: image)
                         .resizable()
                         .scaledToFit()
-                        .frame(height: 300)
+                        .frame(height: 400)
                         .cornerRadius(8)
                 }
                 Spacer()
             }
-            VStack(alignment: .leading) {
-                Text("Gender: \(Gender(rawValue: pet.gender)!.description)")
-                Text("Age: \(calculateYearsOld(with: pet.birthday ?? Date()))")
-                Text("Weight: \(formatWeight(pet.weight)) lbs")
-                    .padding(.bottom, 8)
+            HStack {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("**Age**: \(calculateYearsOld(with: pet.birthday ?? Date()))")
+                    Text("**Gender**: \(Gender(rawValue: pet.gender)!.description)")
+                    Text("**Weight**: \(formatWeight(pet.weight)) lbs")
+                        .padding(.bottom, 8)
+                }
+                Spacer()
             }
+            .padding(.horizontal)
             Spacer()
         }
         .padding(.vertical)
-        .sheet(isPresented: $showEditPetView, content: {
-            EditPetView(pet: pet)
-        })
     }
     
     private func calculateYearsOld(with birthday: Date) -> String {

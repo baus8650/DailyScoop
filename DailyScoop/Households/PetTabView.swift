@@ -31,6 +31,9 @@ struct PetTabView: View {
                 .presentationDetents([.medium])
                 .presentationDragIndicator(.visible)
         }
+        .sheet(isPresented: $showEditPetView) {
+            EditPetView(pet: pet)
+        }
         .navigationTitle("\(pet.name ?? "Pet")")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -42,7 +45,7 @@ struct PetTabView: View {
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    showEditPetView.toggle()
+                    showEditPetView = true
                 } label: {
                     Text("Edit")
                 }
