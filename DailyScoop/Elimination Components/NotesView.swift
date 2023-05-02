@@ -13,7 +13,7 @@ struct NotesView: View {
     
     var body: some View {
         VStack {
-            Text("Notes")
+            Text("**Notes**")
                 .padding(.top, 12)
                 .foregroundColor(Color("mainColor"))
             ScrollView {
