@@ -23,7 +23,7 @@ struct EditEliminationView: View {
     init(pet: Pet, elimination: Elimination) {
         self.pet = pet
         self.elimination = elimination
-        self._time = State(wrappedValue: elimination.time!)
+        self._time = State(wrappedValue: elimination.time ?? Date())
         self._type = State(wrappedValue: EliminationType(rawValue: elimination.type) ?? .none)
         self._consistency = State(wrappedValue:  Double(elimination.consistency))
         self._notes = State(wrappedValue:  elimination.notes ?? "")

@@ -68,11 +68,9 @@ public enum Consistency: Int16, CaseIterable, Identifiable {
 }
 
 public enum SampleSize: String, CaseIterable {
-    case day = "D"
-    case week = "W"
-    case month = "M"
-    case sixMonths = "6M"
-    case year = "Y"
+    case day = "Day"
+    case week = "Week"
+    case month = "Month"
 }
 
 public enum GraphType: String, CaseIterable {

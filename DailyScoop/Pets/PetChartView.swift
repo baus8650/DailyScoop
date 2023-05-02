@@ -33,22 +33,23 @@ struct PetChartView: View {
             ],
             predicate: petPredicate
         )
+        
+        UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(named: "mainColor")
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor(named: "mainColorFlipped")], for: .selected)
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor(named: "mainColor") as Any], for: .normal)
     }
     
     var body: some View {
+        ZStack {
+            Color("background")
             VStack {
                 VStack(spacing: 16) {
-//                    Picker("Graph Type", selection: $graphType) {
-//                        ForEach(GraphType.allCases, id: \.self) {
-//                            Text($0.rawValue)
-//                        }
-//                    }
-//                    .pickerStyle(.segmented)
                     Picker("Eliminations at a glance", selection: $sampleSize) {
                         ForEach(SampleSize.allCases, id: \.self) { size in
                             Text(size.rawValue)
                         }
                     }
+                    .foregroundColor(Color("mainColor"))
                     .pickerStyle(.segmented)
                     .onChange(of: sampleSize) { newValue in
                         grandTotals.rest()
@@ -60,47 +61,93 @@ struct PetChartView: View {
                     }
                     HStack {
                         Chart {
-                            ForEach(eliminationData) { elimination in
-                                ForEach(elimination.data, id: \.eliminationType) {
-                                    switch graphType {
-                                    case .bar:
+                            if sampleSize == .day {
+                                ForEach(peeEntries, id: \.date) { elimination in
+                                    BarMark(x: .value("Type", elimination.eliminationType), y: .value("Total", elimination.total), width: 36)
+                                        .foregroundStyle(Color("peeColor"))
+                                        .cornerRadius(8)
+                                }
+                                ForEach(pooEntries, id: \.date) { elimination in
+                                    BarMark(x: .value("Type", elimination.eliminationType), y: .value("Total", elimination.total), width: 36)
+                                        .foregroundStyle(Color("poopColor"))
+                                        .cornerRadius(8)
+                                }
+                                ForEach(accidentEntries, id: \.date) { elimination in
+                                    BarMark(x: .value("Type", elimination.eliminationType), y: .value("Total", elimination.total), width: 36)
+                                        .foregroundStyle(Color("accidentColor"))
+                                        .cornerRadius(8)
+                                }
+                            } else {
+                                ForEach(eliminationData) { elimination in
+                                    ForEach(elimination.data, id: \.eliminationType) {
                                         BarMark(x: .value("Date", $0.date, unit: .day), y: .value("Total", $0.total))
-                                    case .line:
-                                        LineMark(x: .value("Date", $0.date, unit: .day), y: .value("Total", $0.total))
+                                            .cornerRadius(4)
+                                            .foregroundStyle(by: .value("Elimination", elimination.eliminationType))
+                                            .position(by: .value("elimination", elimination.eliminationType))
                                     }
                                 }
-                                
-                                .foregroundStyle(by: .value("Elimination", elimination.eliminationType))
-                                .position(by: .value("elimination", elimination.eliminationType))
                             }
                         }
+                        .padding()
+                        .background(
+                            RoundedRectangle(cornerRadius: 8)
+                                .fill(Color("system"))
+                            )
+                        .chartLegend(sampleSize == .day ? .hidden : .visible)
                         .chartXAxis {
-                            AxisMarks (values: .stride (by: .day)) { value in
-                                AxisValueLabel(format: .dateTime.month(.defaultDigits).day(), centered: true)
+                            if sampleSize == .day {
+                                AxisMarks(values: ["Pee", "Poop", "Accident"]) { value in
+                                    if value.as(String.self) == "Pee" {
+                                        AxisValueLabel("Pee", centered: true)
+                                    } else if value.as(String.self) == "Poop" {
+                                        AxisValueLabel("Poop")
+                                    } else {
+                                        AxisValueLabel("Accident")
+                                    }
+                                }
+                            } else {
+                                AxisMarks (values: .stride (by: .day)) { value in
+                                    AxisValueLabel(format: .dateTime.month(.defaultDigits).day(), centered: true)
+                                }
                             }
                         }
                         .chartForegroundStyleScale(
                             [
-                                "Pee": .yellow,
-                                "Poop": .brown,
-                                "Accident": .red
+                                "Pee": Color("peeColor"),
+                                "Poop": Color("poopColor"),
+                                "Accident": Color("accidentColor")
                             ]
                         )
                     }
                     .padding([.top, .bottom])
-                    Divider()
                     VStack(spacing: 12) {
-                        Text("**Totals**")
-                            .font(.title2)
+                        switch sampleSize {
+                        case .day:
+                            Text("**Total Daily Potties**")
+                                .foregroundColor(Color("mainColor"))
+                                .font(.title2)
+                        case .week:
+                            Text("**Total Weekly Potties**")
+                                .foregroundColor(Color("mainColor"))
+                                .font(.title2)
+                        case .month:
+                            Text("**Total Monthly Potties**")
+                                .foregroundColor(Color("mainColor"))
+                                .font(.title2)
+                        }
                         HStack {
                             VStack(alignment: .leading, spacing: 8) {
                                 Text("Pees: **\(grandTotals.pee)**")
+                                    .foregroundColor(Color("mainColor"))
                                 Text("Poops: **\(grandTotals.poop)**")
+                                    .foregroundColor(Color("mainColor"))
                                 Text("Accidents: **\(grandTotals.accident)**")
+                                    .foregroundColor(Color("mainColor"))
                             }
                             Spacer()
                         }
                     }
+                    .padding(.bottom, 36)
                 }
             }
             .onAppear {
@@ -111,6 +158,7 @@ struct PetChartView: View {
                 processEliminationData(for: .day)
             }
             .padding(.horizontal)
+        }
     }
     
     func filterEliminations(_ groupDic: [DateComponents : [Elimination]], _ dc: DateComponents) -> [DateComponents : [Elimination]] {
@@ -143,14 +191,14 @@ struct PetChartView: View {
             var dc = DateComponents()
             dc.month = -1
             newGroup = filterEliminations(groupDic, dc)
-        case .sixMonths:
-            var dc = DateComponents()
-            dc.month = -6
-            newGroup = filterEliminations(groupDic, dc)
-        case .year:
-            var dc = DateComponents()
-            dc.year = -1
-            newGroup = filterEliminations(groupDic, dc)
+//        case .sixMonths:
+//            var dc = DateComponents()
+//            dc.month = -6
+//            newGroup = filterEliminations(groupDic, dc)
+//        case .year:
+//            var dc = DateComponents()
+//            dc.year = -1
+//            newGroup = filterEliminations(groupDic, dc)
         }
         eliminationData = processEliminations(eliminationsDict: newGroup)
     }

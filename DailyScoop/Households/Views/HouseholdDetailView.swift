@@ -23,6 +23,7 @@ struct HouseholdDetailView: View {
     @State var isShowingPeeConfirmation: Bool = false
     @State var isShowingAccidentConfirmation: Bool = false
     @State var isAnimating: Bool = false
+    @State private var path = NavigationPath()
     @FetchRequest var pets: FetchedResults<Pet>
     
     init(household: Household) {
@@ -56,136 +57,85 @@ struct HouseholdDetailView: View {
                         }
                         .sheet(isPresented: $shouldPresentAddPetView) {
                             AddPetView(household: household)
-                                .presentationDetents([.medium])
+                                .presentationDetents([.height(350)])
                                 .presentationDragIndicator(.visible)
                         }
                     } else {
-                        Section {
+//                        Section {
                             List {
-
                                 ForEach(pets) { pet in
-                                    NavigationLink {
-                                        PetTabView(pet: pet)
-                                    } label: {
-                                        HStack(spacing: 16) {
-                                            if let imageData = pet.picture, let image = UIImage(data: imageData) {
-                                                Image(uiImage: image)
-                                                    .resizable()
-                                                    .scaledToFit()
-                                                    .frame(width: 100)
-                                                    .cornerRadius(8)
-                                            }
-                                            VStack {
-                                                Text(pet.name ?? "")
-                                                    .font(.title3)
-                                                    .fontWeight(.medium)
-                                                    .padding(.vertical ,4)
-                                                VStack(alignment: .leading, spacing: 2) {
-                                                    Text("Latest Eliminations")
-                                                        .font(.subheadline)
-                                                    Divider()
-                                                        .padding(.bottom, 2)
-                                                    if let latestPee = retrievePees(for: pet).first {
-                                                        let yesterday = Calendar.current.startOfDay(for: Calendar.current.date(byAdding: DateComponents(day: -1), to: Date())!)
-                                                        if Calendar.current.isDateInToday(latestPee.time!) {
-                                                            Text("Pee: \(latestPee.time!.formatted(.dateTime.hour().minute()))")
-                                                                .font(.caption)
-                                                        } else if latestPee.time! >= yesterday {
-                                                            Text("Pee: Yesterday, \(latestPee.time!.formatted(.dateTime.hour().minute()))")
-                                                                .font(.caption)
-                                                        } else {
-                                                            Text("Pee: \(latestPee.time!.formatted(.dateTime.month(.twoDigits).day().hour().minute()))")
-                                                                .font(.caption)
-                                                        }
-                                                    }
-                                                    if let latestPoop = retrievePoops(for: pet).first {
-                                                        let yesterday = Calendar.current.startOfDay(for: Calendar.current.date(byAdding: DateComponents(day: -1), to: Date())!)
-                                                        if Calendar.current.isDateInToday(latestPoop.time!) {
-                                                            Text("Poop: \(latestPoop.time!.formatted(.dateTime.hour().minute()))")
-                                                                .font(.caption)
-                                                        } else if latestPoop.time! >= yesterday {
-                                                            Text("Poop: Yesterday, \(latestPoop.time!.formatted(.dateTime.hour().minute()))")
-                                                                .font(.caption)
-                                                        } else {
-                                                            Text("Poop: \(latestPoop.time!.formatted(.dateTime.month(.twoDigits).day().hour().minute()))")
-                                                                .font(.caption)
-                                                        }
-                                                    }
-                                                    if calculateBirthday(with: pet.birthday!) {
-                                                        Text("Happy Birthday, \(pet.name!)! 🎉🎂")
-                                                            .font(.caption)
-                                                            .fontWeight(.bold)
-                                                            .padding(.top, 8)
+                                    PetRowView(pet: pet)
+                                        .background(
+                                            NavigationLink("", destination: PetTabView(pet: pet))
+                                                .opacity(0)
+                                        )
+                                        .swipeActions(edge: .leading, allowsFullSwipe: false, content: {
+                                            Button {
+                                                recordQuickPoop(pet: pet)
+                                                withAnimation(.easeInOut(duration: 0.75)) {
+                                                    isShowingPoopConfirmation.toggle()
+                                                }
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                                                    withAnimation(.easeOut(duration: 0.75)) {
+                                                        isShowingPoopConfirmation = false
                                                     }
                                                 }
-                                                Spacer()
+                                            } label: {
+                                                Label("Poop", image: "poopSmall")
+                                                
                                             }
-                                        }
-                                    }
-                                    .swipeActions(edge: .leading, allowsFullSwipe: false, content: {
-                                        Button {
-                                            recordQuickPoop(pet: pet)
-                                            withAnimation(.easeInOut(duration: 0.75)) {
-                                                isShowingPoopConfirmation.toggle()
-                                            }
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                                                withAnimation(.easeOut(duration: 0.75)) {
-                                                    isShowingPoopConfirmation = false
+                                            .tint(.brown)
+                                            .frame(height: 12)
+                                            Button {
+                                                recordQuickPee(pet: pet)
+                                                withAnimation(.easeInOut(duration: 0.75)) {
+                                                    isShowingPeeConfirmation.toggle()
                                                 }
-                                            }
-                                        } label: {
-                                            Label("Poop", systemImage: "nose.fill")
-                                        }
-                                        .tint(.brown)
-                                        Button {
-                                            recordQuickPee(pet: pet)
-                                            withAnimation(.easeInOut(duration: 0.75)) {
-                                                isShowingPeeConfirmation.toggle()
-                                            }
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                                                withAnimation(.easeOut(duration: 0.75)) {
-                                                    isShowingPeeConfirmation = false
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                                                    withAnimation(.easeOut(duration: 0.75)) {
+                                                        isShowingPeeConfirmation = false
+                                                    }
                                                 }
+                                            } label: {
+                                                Label("Pee", image: "peeSmall")
                                             }
-                                        } label: {
-                                            Label("Pee", systemImage: "drop.fill")
-                                        }
-                                        .tint(.yellow)
-                                        Button {
-                                            isShowingAccidentView = pet
-                                        } label: {
-                                            Label("Oops!", systemImage: "sos.circle.fill")
-                                        }
-                                        .tint(.red)
-                                        
-                                    })
-                                    .swipeActions(edge: .trailing, allowsFullSwipe: false, content: {
-                                        Button(role: .destructive) {
-                                            petToDelete = pet
-                                            isShowingDeletePetAlert = true
-                                        } label: {
-                                            Label("Delete", systemImage: "trash")
-                                        }
-                                        
-                                    })
+                                            .tint(.yellow)
+                                            Button {
+                                                isShowingAccidentView = pet
+                                            } label: {
+                                                Label("Oops!", image: "accidentSmall")
+                                            }
+                                            .tint(.red)
+                                            
+                                        })
+                                        .swipeActions(edge: .trailing, allowsFullSwipe: false, content: {
+                                            Button(role: .destructive) {
+                                                petToDelete = pet
+                                                isShowingDeletePetAlert = true
+                                            } label: {
+                                                Label("Delete", systemImage: "trash")
+                                            }
+                                            .tint(.red)
+                                        })
                                 }
                             }
                             Text("**Swipe a pet left or right for quick actions**")
+                            .foregroundColor(Color("mainColor"))
                                 .font(.callout)
                                 .padding(.vertical, 8)
-                        } header: {
-                            Button {
-                                shouldPresentAddPetView.toggle()
-                            } label: {
-                                Label("Add Pet", systemImage: "plus")
-                            }
-                            .padding(.top, 16)
-                            .sheet(isPresented: $shouldPresentAddPetView) {
-                                AddPetView(household: household)
-                                    .presentationDetents([.medium])
-                                    .presentationDragIndicator(.visible)
-                            }
-                        }
+//                        } header: {
+//                            Button {
+//                                shouldPresentAddPetView.toggle()
+//                            } label: {
+//                                Label("Add Pet", systemImage: "plus")
+//                            }
+//                            .padding(.top, 16)
+//                            .sheet(isPresented: $shouldPresentAddPetView) {
+//                                AddPetView(household: household)
+//                                    .presentationDetents([.medium])
+//                                    .presentationDragIndicator(.visible)
+//                            }
+//                        }
                     }
                 }
             }
@@ -203,6 +153,7 @@ struct HouseholdDetailView: View {
                     .zIndex(2)
             }
         }
+        
         .onAppear(perform: {
             self.share = stack.getShare(household)
         })
@@ -210,6 +161,11 @@ struct HouseholdDetailView: View {
             if let share = share {
                 CloudSharingView(share: share, container: stack.ckContainer, household: household)
             }
+        }
+        .sheet(isPresented: $shouldPresentAddPetView) {
+            AddPetView(household: household)
+                .presentationDetents([.height(350)])
+                .presentationDragIndicator(.visible)
         }
         .sheet(item: $isShowingAccidentView) { pet in
             ReportAccidentView(confirmation: $isShowingAccidentConfirmation, pet: pet)
@@ -235,7 +191,7 @@ struct HouseholdDetailView: View {
             Text("Are you sure you want to delete \(petToDelete?.name ?? "this pet")? Deleting \(petToDelete?.name ?? "this pet") will affect all users you share this household with. This action is permanent cannot be undone!")
         })
         .navigationTitle("\(household.name ?? "Default House")")
-        .navigationBarTitleDisplayMode(.large)
+//        .navigationBarTitleDisplayMode(.large)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
@@ -247,6 +203,13 @@ struct HouseholdDetailView: View {
                     showShareSheet = true
                 } label: {
                     Image(systemName: "square.and.arrow.up")
+                }
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    shouldPresentAddPetView = true
+                } label: {
+                    Image("addPet")
                 }
             }
         }

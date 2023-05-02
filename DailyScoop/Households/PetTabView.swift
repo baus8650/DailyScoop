@@ -9,30 +9,30 @@ import SwiftUI
 
 struct PetTabView: View {
     @ObservedObject var pet: Pet
-    @State var showEditPetView: Bool = false
     @State private var shouldPresentAddEliminationView: Bool = false
+
     var body: some View {
         TabView {
-            PetChartView(pet: pet)
+            PetDetailView(pet: pet)
                 .tabItem {
-                    Label("Metrics", systemImage: "chart.bar.xaxis")
+                    Label("Details", systemImage: "person.text.rectangle.fill")
                 }
+            
             EliminationCalendarView(pet: pet)
                 .tabItem {
                     Label("History", systemImage: "calendar")
                 }
-            PetDetailView(pet: pet, showEditPetView: $showEditPetView)
+            
+            PetChartView(pet: pet)
                 .tabItem {
-                    Label("Details", systemImage: "person.text.rectangle.fill")
+                    Label("Metrics", systemImage: "chart.bar.xaxis")
                 }
+            
         }
         .sheet(isPresented: $shouldPresentAddEliminationView) {
             AddEliminationView(pet: pet)
-                .presentationDetents([.medium])
+                .presentationDetents([.height(400)])
                 .presentationDragIndicator(.visible)
-        }
-        .sheet(isPresented: $showEditPetView) {
-            EditPetView(pet: pet)
         }
         .navigationTitle("\(pet.name ?? "Pet")")
         .toolbar {
@@ -40,16 +40,11 @@ struct PetTabView: View {
                 Button {
                     shouldPresentAddEliminationView.toggle()
                 } label: {
-                    Image(systemName: "plus")
+                    Image("hydrant")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 32)
                 }
-            }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    showEditPetView = true
-                } label: {
-                    Text("Edit")
-                }
-                
             }
         }
     }

@@ -18,6 +18,26 @@ struct HouseholdListView: View {
     @State var isShowingDeleteAlert: Bool = false
     @State var selectedHousehold: Household?
     
+    init() {
+        
+        let appearence = UINavigationBarAppearance()
+        appearence.configureWithOpaqueBackground()
+        appearence.backgroundColor = UIColor(named: "background")
+        appearence.titleTextAttributes = [.foregroundColor: UIColor(named: "mainColor")]
+        appearence.largeTitleTextAttributes = [.foregroundColor: UIColor(named: "mainColor")]
+        appearence.shadowColor = .clear
+        
+        UINavigationBar.appearance().standardAppearance = appearence
+        UINavigationBar.appearance().scrollEdgeAppearance = appearence
+        
+        UINavigationBar.appearance().compactAppearance = appearence
+        UINavigationBar.appearance().tintColor = UIColor(named: "mainColor")
+        
+//        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor(named: "mainColor")]
+//        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor(named: "mainColor")]
+//        UINavigationBar.appearance().barTintColor = UIColor(named: "background")
+    }
+    
     var body: some View {
         NavigationView {
             if households.count == 0 {
@@ -53,6 +73,8 @@ struct HouseholdListView: View {
                             VStack(alignment: .leading, spacing: 4) {
                                 Text("\(household.name!)")
                                     .font(.title2)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color("mainColor"))
                                 Text("Pets: \(household.pets?.count ?? 0)")
                                     .font(.subheadline)
                                     .foregroundColor(.gray)

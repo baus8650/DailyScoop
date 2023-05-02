@@ -15,6 +15,8 @@ struct DailyScoopApp: App {
         WindowGroup {
             HouseholdListView()
                 .environment(\.managedObjectContext, CoreDataStack.shared.context)
+                .background(Color(uiColor: UIColor.secondarySystemGroupedBackground))
+                .tint(Color("mainColor"))
         }
     }
 }

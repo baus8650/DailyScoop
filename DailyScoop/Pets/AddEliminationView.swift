@@ -20,8 +20,10 @@ struct AddEliminationView: View {
     var stack = CoreDataStack.shared
     
     var body: some View {
-        NavigationView {
-            VStack {
+        ZStack(alignment: .top) {
+            Color("buttonBackground")
+                .ignoresSafeArea()
+            VStack(spacing: 8) {
             Form {
                 DatePicker("Time", selection: $time)
                 Picker("Type", selection: $type) {
@@ -46,6 +48,8 @@ struct AddEliminationView: View {
                     .textFieldStyle(.roundedBorder)
                     .lineLimit(5, reservesSpace: true)
             }
+            .padding(.top, 28)
+            .scrollDismissesKeyboard(.immediately)
                 HStack(spacing: 48) {
                     Spacer()
                     Button {
@@ -66,10 +70,11 @@ struct AddEliminationView: View {
                     }
                     Spacer()
                 }
+                .padding(.bottom, 24)
             }
-            .padding(.top, -30)
-            .navigationTitle("Add Elimination")
-            .navigationBarTitleDisplayMode(.inline)
+            Text("**Add Elimination**")
+                .foregroundColor(Color("mainColor"))
+                .padding(.top, 24)
         }
         .alert("No Type Selected", isPresented: $showEmptyTypeAlert) {
             Button {

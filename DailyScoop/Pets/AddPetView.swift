@@ -24,8 +24,10 @@ struct AddPetView: View {
     private let stack = CoreDataStack.shared
     
     var body: some View {
-        NavigationView {
-            VStack {
+        ZStack(alignment: .top) {
+            Color("buttonBackground")
+                .ignoresSafeArea()
+            VStack(spacing: 8) {
                 Form {
                     TextField("Name", text: $name)
                         .textInputAutocapitalization(.words)
@@ -56,6 +58,7 @@ struct AddPetView: View {
                         .resizable()
                         .scaledToFit()
                 }
+                .padding(.top, 28)
                 .scrollDismissesKeyboard(.immediately)
                 HStack(spacing: 48) {
                     Button {
@@ -71,14 +74,14 @@ struct AddPetView: View {
                         Text("Save")
                     }
                 }
-                .padding(.bottom, 12)
+                .padding(.bottom, 24)
             }
-            .sheet(isPresented: $showingImagePicker, onDismiss: loadImage) {
-                ImagePicker(image: $inputImage)
-            }
-            .padding(.top, -30)
-            .navigationTitle("Add Pet")
-            .navigationBarTitleDisplayMode(.inline)
+            Text("**Add Pet**")
+                .foregroundColor(Color("mainColor"))
+                .padding(.top, 24)
+        }
+        .sheet(isPresented: $showingImagePicker, onDismiss: loadImage) {
+            ImagePicker(image: $inputImage)
         }
     }
     
