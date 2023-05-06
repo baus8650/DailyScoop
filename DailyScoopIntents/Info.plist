@@ -17,6 +17,7 @@
 				<string>INSearchForMessagesIntent</string>
 				<string>INSendMessageIntent</string>
 				<string>INSetMessageAttributeIntent</string>
+				<string>PetsIntent</string>
 			</array>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>

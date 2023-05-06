@@ -7,48 +7,53 @@
 
 import CoreData
 import Foundation
+import NotificationCenter
+import WidgetKit
 
 final class WidgetUtilities {
     static let context = CoreDataStack.shared.context
     
-    static func fetch(pet: String, from household: String) -> WidgetPet {
+    static func fetch(_ pet: String, from household: String) -> Pet? {
         let fetchRequest: NSFetchRequest<Pet>
         fetchRequest = Pet.fetchRequest()
         
-        let householdPredicate = NSPredicate(
-            format: "household = %@", household
-        )
-        let petNamePredicate = NSPredicate(format: "name = %@", pet)
-        let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: [householdPredicate, petNamePredicate])
-        
+        let petPredicate = NSPredicate(format: "name == %@", pet)
+        let householdPredicate = NSPredicate(format: "household.name == %@", household)
+        let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: [petPredicate, householdPredicate])
         fetchRequest.predicate = compoundPredicate
+        var pet: Pet?
+        
         do {
-            let pet = try context.fetch(fetchRequest)
-            let newPet = pet.map {
-                let eliminations = $0.eliminations?.allObjects as! [Elimination]
-                var pee = eliminations.filter { elimination in
-                    elimination.type == 1
-                }
-                let widgetPee = pee.map {
-                    WidgetElimination(date: $0.time!, type: .pee)
-                }
-                var poop = eliminations.filter { elimination in
-                    elimination.type == 2
-                }
-                let widgetPoop = poop.map {
-                    WidgetElimination(date: $0.time!, type: .poop)
-                }
-                var accidents = eliminations.filter { elimination in
-                    elimination.wasAccident == true
-                }
-                let widgetAccidents = accidents.map {
-                    WidgetElimination(date: $0.time!, type: .accident)
-                }
-                return WidgetPet(id: UUID().uuidString, name: $0.name!, birthday: $0.birthday!, weight: $0.weight, peeEntries: widgetPee, poopEntries: widgetPoop, accidentEntries: widgetAccidents)
+            let pets = try context.fetch(fetchRequest)
+            if pets.count == 1 {
+                pet = pets[0]
+                return pet
+            } else {
+                print(pets.map { "\($0.name) from \($0.household?.name)"})
+                print("Error, more than one pet fits this description")
             }
         } catch {
             print("Error")
         }
-        return WidgetPet(id: "", name: "", birthday: Date(), weight: 0.0, peeEntries: [], poopEntries: [], accidentEntries: [])
+        return pet
+    }
+    
+    static func fetchEliminations(for pet: Pet?) -> [Elimination] {
+        if let pet {
+            let fetchRequest: NSFetchRequest<Elimination>
+            fetchRequest = Elimination.fetchRequest()
+            fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \Elimination.time, ascending: false)]
+            
+            let petPredicate = NSPredicate(format: "pet == %@", pet)
+            fetchRequest.predicate = petPredicate
+            do {
+                let eliminations = try context.fetch(fetchRequest)
+                return eliminations
+            } catch {
+                print("Could not fetch eliminations")
+            }
+        }
+        
+        return []
     }
 }

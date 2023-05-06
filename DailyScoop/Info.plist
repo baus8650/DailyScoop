@@ -8,6 +8,7 @@
 	<array>
 		<string>ConfigurationIntent</string>
 		<string>HouseholdsIntent</string>
+		<string>PetsIntent</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

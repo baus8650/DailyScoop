@@ -82,16 +82,32 @@ struct PetDetailView: View {
                 Chart {
                     ForEach(eliminations) { elimination in
                         if elimination.type == 1 {
-                            RectangleMark(x: .value("Time", elimination.time!), y: .value("type", 2), width: 12, height: 28)
-                                .foregroundStyle(Color("peeColor"))
-                                .cornerRadius(6)
+                            if elimination.wasAccident {
+                                RectangleMark(x: .value("Time", elimination.time!), y: .value("type", 2), width: 12, height: 28)
+                                    .foregroundStyle(
+                                        LinearGradient(colors: [Color("peeColor"), Color("accidentColor")], startPoint: .top, endPoint: .bottom)
+                                    )
+                                    .cornerRadius(6)
+                            } else {
+                                RectangleMark(x: .value("Time", elimination.time!), y: .value("type", 2), width: 12, height: 28)
+                                    .foregroundStyle(Color("peeColor"))
+                                    .cornerRadius(6)
+                            }
                         }
                     }
                     ForEach(eliminations) { elimination in
                         if elimination.type == 2 {
-                            RectangleMark(x: .value("Time", elimination.time!), y: .value("type", 1), width: 12, height: 28)
-                                .foregroundStyle(Color("poopColor"))
-                                .cornerRadius(6)
+                            if elimination.wasAccident {
+                                RectangleMark(x: .value("Time", elimination.time!), y: .value("type", 1), width: 12, height: 28)
+                                    .foregroundStyle(
+                                        LinearGradient(colors: [Color("poopColor"), Color("accidentColor")], startPoint: .top, endPoint: .bottom)
+                                    )
+                                    .cornerRadius(6)
+                            } else {
+                                RectangleMark(x: .value("Time", elimination.time!), y: .value("type", 1), width: 12, height: 28)
+                                    .foregroundStyle(Color("poopColor"))
+                                    .cornerRadius(6)
+                            }
                         }
                     }
                     ForEach(dummyData, id: \.self) { data in

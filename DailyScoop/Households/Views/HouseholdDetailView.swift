@@ -7,6 +7,7 @@
 
 import CloudKit
 import SwiftUI
+import WidgetKit
 
 struct HouseholdDetailView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
@@ -221,6 +222,7 @@ struct HouseholdDetailView: View {
         elimination.type = 2
         elimination.time = Date()
         stack.save()
+        WidgetCenter.shared.reloadAllTimelines()
     }
     
     private func recordQuickPee(pet: Pet) {
@@ -229,6 +231,7 @@ struct HouseholdDetailView: View {
         elimination.type = 1
         elimination.time = Date()
         stack.save()
+        WidgetCenter.shared.reloadAllTimelines()
     }
     
     private func recordAccident(pet: Pet) {
@@ -339,6 +342,7 @@ extension HouseholdDetailView {
         }
     }
     
+    @MainActor
     private func createShare(_ household: Household) async {
         do {
             let (_, share, _) = try await stack.persistentContainer.share([household], to: nil)

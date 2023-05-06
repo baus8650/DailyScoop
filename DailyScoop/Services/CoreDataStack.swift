@@ -43,15 +43,16 @@ final class CoreDataStack: ObservableObject {
         guard let privateStoreDescription = container.persistentStoreDescriptions.first else {
             fatalError("Unable to get persistentStoreDescription")
         }
-        let storesURL = privateStoreDescription.url?.deletingLastPathComponent()
-        privateStoreDescription.url = storesURL?.appendingPathComponent("private.sqlite")
+        let storesURL = URL.storeURL(for: WidgetConstants.suiteName, databaseName: "DailyScoop")
+        privateStoreDescription.url = storesURL.appendingPathComponent("private.sqlite")
         
         // TODO: 1
-        let sharedStoreURL = storesURL?.appendingPathComponent("shared.sqlite")
+        let sharedStoreURL = storesURL.appendingPathComponent("shared.sqlite")
         guard let sharedStoreDescription = privateStoreDescription.copy() as? NSPersistentStoreDescription else {
             fatalError("Copying the private store description returned an unexpected value.")
         }
         sharedStoreDescription.url = sharedStoreURL
+        privateStoreDescription.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(containerIdentifier: "iCloud.com.timbausch.FamilyTracker")
         
         // TODO: 2
         guard let containerIdentifier = privateStoreDescription.cloudKitContainerOptions?.containerIdentifier else {
@@ -184,5 +185,17 @@ extension CoreDataStack {
             }
         }
         return isShared
+    }
+}
+
+public extension URL {
+    
+    /// Returns a URL for the given app group and database pointing to the sqlite database.
+    static func storeURL(for appGroup: String, databaseName: String) -> URL {
+        guard let fileContainer = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroup) else {
+            fatalError("Shared file container could not be created.")
+        }
+        
+        return fileContainer.appendingPathComponent("\(databaseName).sqlite")
     }
 }

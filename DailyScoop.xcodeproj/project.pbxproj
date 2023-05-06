@@ -26,7 +26,6 @@
 		223D97D629F743C8000432C4 /* DailyScoopWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 223D97D129F743C7000432C4 /* DailyScoopWidget.intentdefinition */; };
 		223D97D929F743C8000432C4 /* DailyScoopWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 223D97C629F743C7000432C4 /* DailyScoopWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		223D97E529F74468000432C4 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 223D97E429F74468000432C4 /* Intents.framework */; };
-		223D97E829F74468000432C4 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223D97E729F74468000432C4 /* IntentHandler.swift */; };
 		223D97EC29F74468000432C4 /* DailyScoopIntents.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 223D97E329F74468000432C4 /* DailyScoopIntents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		223D97F029F74650000432C4 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223D97E729F74468000432C4 /* IntentHandler.swift */; };
 		223D97F129F74653000432C4 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223D97E729F74468000432C4 /* IntentHandler.swift */; };
@@ -53,6 +52,20 @@
 		223D981629FB5A35000432C4 /* AccidentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223D981529FB5A35000432C4 /* AccidentView.swift */; };
 		224175EE29FEB9EF00758885 /* PetRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224175ED29FEB9EF00758885 /* PetRowView.swift */; };
 		224175F02A01AF3800758885 /* NotesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224175EF2A01AF3800758885 /* NotesView.swift */; };
+		2241760B2A03370600758885 /* WidgetUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223D980329F755C8000432C4 /* WidgetUtilities.swift */; };
+		2241760C2A03370700758885 /* WidgetUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223D980329F755C8000432C4 /* WidgetUtilities.swift */; };
+		2241760D2A033FDF00758885 /* CloudSharingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226B20822997B936008852B4 /* CloudSharingController.swift */; };
+		2241760E2A033FDF00758885 /* CloudSharingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226B20822997B936008852B4 /* CloudSharingController.swift */; };
+		224176102A0348BA00758885 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2241760F2A0348BA00758885 /* TestView.swift */; };
+		224176132A03D2BE00758885 /* SmallWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224176122A03D2BE00758885 /* SmallWidget.swift */; };
+		224176142A03D34000758885 /* SmallWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224176122A03D2BE00758885 /* SmallWidget.swift */; };
+		224176152A03D34000758885 /* SmallWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224176122A03D2BE00758885 /* SmallWidget.swift */; };
+		224176162A03D36B00758885 /* DailyScoopWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223D97CF29F743C7000432C4 /* DailyScoopWidget.swift */; };
+		224176172A03D3B400758885 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 226B204D2997AC3F008852B4 /* Assets.xcassets */; };
+		224176182A03D3B500758885 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 226B204D2997AC3F008852B4 /* Assets.xcassets */; };
+		2241761C2A047E0D00758885 /* MediumWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2241761B2A047E0D00758885 /* MediumWidget.swift */; };
+		2241761D2A047EE100758885 /* MediumWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2241761B2A047E0D00758885 /* MediumWidget.swift */; };
+		2241761E2A047EE100758885 /* MediumWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2241761B2A047E0D00758885 /* MediumWidget.swift */; };
 		2268A2B029B3F4BC00F220FA /* PetTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2268A2AF29B3F4BC00F220FA /* PetTabView.swift */; };
 		226B204A2997AC3E008852B4 /* DailyScoopApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226B20492997AC3E008852B4 /* DailyScoopApp.swift */; };
 		226B204E2997AC3F008852B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 226B204D2997AC3F008852B4 /* Assets.xcassets */; };
@@ -69,6 +82,10 @@
 		226B20882997C572008852B4 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226B20872997C572008852B4 /* ImagePicker.swift */; };
 		226B208A2997C89E008852B4 /* PetDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226B20892997C89E008852B4 /* PetDetailView.swift */; };
 		226B208C2997D117008852B4 /* AddEliminationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226B208B2997D117008852B4 /* AddEliminationView.swift */; };
+		22B06CE02A0489750053F919 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223D97E729F74468000432C4 /* IntentHandler.swift */; };
+		22B06CE22A0498750053F919 /* LargeWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B06CE12A0498750053F919 /* LargeWidget.swift */; };
+		22B06CE32A0498750053F919 /* LargeWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B06CE12A0498750053F919 /* LargeWidget.swift */; };
+		22B06CE42A0498750053F919 /* LargeWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B06CE12A0498750053F919 /* LargeWidget.swift */; };
 		22C00BA629D133B800D39FD1 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 22C00BA529D133B800D39FD1 /* Localizable.stringsdict */; };
 		22CC81AD29B18FFA0074E7F3 /* EditEliminationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC81AC29B18FFA0074E7F3 /* EditEliminationView.swift */; };
 		22FAFF05299949D700E836A6 /* EliminationCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FAFF04299949D700E836A6 /* EliminationCellView.swift */; };
@@ -156,6 +173,9 @@
 		223D981529FB5A35000432C4 /* AccidentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccidentView.swift; sourceTree = "<group>"; };
 		224175ED29FEB9EF00758885 /* PetRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetRowView.swift; sourceTree = "<group>"; };
 		224175EF2A01AF3800758885 /* NotesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesView.swift; sourceTree = "<group>"; };
+		2241760F2A0348BA00758885 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		224176122A03D2BE00758885 /* SmallWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallWidget.swift; sourceTree = "<group>"; };
+		2241761B2A047E0D00758885 /* MediumWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumWidget.swift; sourceTree = "<group>"; };
 		2268A2AF29B3F4BC00F220FA /* PetTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetTabView.swift; sourceTree = "<group>"; };
 		226B20462997AC3E008852B4 /* DailyScoop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyScoop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		226B20492997AC3E008852B4 /* DailyScoopApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyScoopApp.swift; sourceTree = "<group>"; };
@@ -177,6 +197,7 @@
 		226B20872997C572008852B4 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		226B20892997C89E008852B4 /* PetDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetDetailView.swift; sourceTree = "<group>"; };
 		226B208B2997D117008852B4 /* AddEliminationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEliminationView.swift; sourceTree = "<group>"; };
+		22B06CE12A0498750053F919 /* LargeWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeWidget.swift; sourceTree = "<group>"; };
 		22C00BA529D133B800D39FD1 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		22CC81AC29B18FFA0074E7F3 /* EditEliminationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEliminationView.swift; sourceTree = "<group>"; };
 		22FAFF04299949D700E836A6 /* EliminationCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EliminationCellView.swift; sourceTree = "<group>"; };
@@ -266,6 +287,7 @@
 		223D97CC29F743C7000432C4 /* DailyScoopWidget */ = {
 			isa = PBXGroup;
 			children = (
+				224176112A03D2B100758885 /* Views */,
 				223D980729F75717000432C4 /* Widget Models */,
 				223D97F329F74725000432C4 /* Widget Utilities */,
 				223D97CD29F743C7000432C4 /* DailyScoopWidgetBundle.swift */,
@@ -313,6 +335,16 @@
 				224175EF2A01AF3800758885 /* NotesView.swift */,
 			);
 			path = "Elimination Components";
+			sourceTree = "<group>";
+		};
+		224176112A03D2B100758885 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				224176122A03D2BE00758885 /* SmallWidget.swift */,
+				2241761B2A047E0D00758885 /* MediumWidget.swift */,
+				22B06CE12A0498750053F919 /* LargeWidget.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		226B203D2997AC3E008852B4 = {
@@ -405,6 +437,7 @@
 				226B20802997B8A3008852B4 /* CoreDataStack.swift */,
 				226B20822997B936008852B4 /* CloudSharingController.swift */,
 				226B20872997C572008852B4 /* ImagePicker.swift */,
+				2241760F2A0348BA00758885 /* TestView.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -581,6 +614,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				224176172A03D3B400758885 /* Assets.xcassets in Resources */,
 				223D97D329F743C8000432C4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -589,6 +623,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				224176182A03D3B500758885 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -623,14 +658,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2241760B2A03370600758885 /* WidgetUtilities.swift in Sources */,
+				2241760D2A033FDF00758885 /* CloudSharingController.swift in Sources */,
 				223D97FC29F74CDE000432C4 /* Utilities.swift in Sources */,
 				223D97D029F743C7000432C4 /* DailyScoopWidget.swift in Sources */,
 				223D980029F74EAA000432C4 /* DailyScoop.xcdatamodeld in Sources */,
+				224176142A03D34000758885 /* SmallWidget.swift in Sources */,
 				223D97D529F743C8000432C4 /* DailyScoopWidget.intentdefinition in Sources */,
 				223D980A29F757FD000432C4 /* WidgetModels.swift in Sources */,
 				223D97F029F74650000432C4 /* IntentHandler.swift in Sources */,
+				22B06CE32A0498750053F919 /* LargeWidget.swift in Sources */,
 				223D97FA29F7482F000432C4 /* WidgetConstants.swift in Sources */,
 				223D97CE29F743C7000432C4 /* DailyScoopWidgetBundle.swift in Sources */,
+				2241761E2A047EE100758885 /* MediumWidget.swift in Sources */,
 				223D980529F75672000432C4 /* CoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -639,14 +679,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2241760C2A03370700758885 /* WidgetUtilities.swift in Sources */,
+				2241760E2A033FDF00758885 /* CloudSharingController.swift in Sources */,
 				223D97FF29F74E04000432C4 /* DailyScoopWidgetBundle.swift in Sources */,
 				223D97FB29F7482F000432C4 /* WidgetConstants.swift in Sources */,
 				223D980129F74EAA000432C4 /* DailyScoop.xcdatamodeld in Sources */,
-				223D97E829F74468000432C4 /* IntentHandler.swift in Sources */,
+				224176152A03D34000758885 /* SmallWidget.swift in Sources */,
+				22B06CE02A0489750053F919 /* IntentHandler.swift in Sources */,
 				223D980B29F757FD000432C4 /* WidgetModels.swift in Sources */,
 				223D97FE29F74DF7000432C4 /* DailyScoopWidget.swift in Sources */,
+				22B06CE42A0498750053F919 /* LargeWidget.swift in Sources */,
 				223D97FD29F74CDE000432C4 /* Utilities.swift in Sources */,
 				223D97F229F74658000432C4 /* DailyScoopWidget.intentdefinition in Sources */,
+				2241761D2A047EE100758885 /* MediumWidget.swift in Sources */,
 				223D980629F75672000432C4 /* CoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -667,7 +712,9 @@
 				220733A029990A2A0018AF8E /* DaySpecificEliminationsView.swift in Sources */,
 				226B208A2997C89E008852B4 /* PetDetailView.swift in Sources */,
 				220733992998764D0018AF8E /* AppDelegate.swift in Sources */,
+				224176132A03D2BE00758885 /* SmallWidget.swift in Sources */,
 				223D980429F755C8000432C4 /* WidgetUtilities.swift in Sources */,
+				224176162A03D36B00758885 /* DailyScoopWidget.swift in Sources */,
 				223D97D629F743C8000432C4 /* DailyScoopWidget.intentdefinition in Sources */,
 				226B20532997AC3F008852B4 /* Persistence.swift in Sources */,
 				223D981629FB5A35000432C4 /* AccidentView.swift in Sources */,
@@ -677,8 +724,10 @@
 				226B20882997C572008852B4 /* ImagePicker.swift in Sources */,
 				220733A2299915F80018AF8E /* EditPetView.swift in Sources */,
 				226B20562997AC3F008852B4 /* DailyScoop.xcdatamodeld in Sources */,
+				2241761C2A047E0D00758885 /* MediumWidget.swift in Sources */,
 				224175EE29FEB9EF00758885 /* PetRowView.swift in Sources */,
 				222F93E129AAED460015307B /* ReportAccidentView.swift in Sources */,
+				224176102A0348BA00758885 /* TestView.swift in Sources */,
 				226B204A2997AC3E008852B4 /* DailyScoopApp.swift in Sources */,
 				226B207B2997B14A008852B4 /* AddPetView.swift in Sources */,
 				226B20832997B936008852B4 /* CloudSharingController.swift in Sources */,
@@ -686,6 +735,7 @@
 				22FAFF05299949D700E836A6 /* EliminationCellView.swift in Sources */,
 				226B207E2997B1D7008852B4 /* Constants.swift in Sources */,
 				2268A2B029B3F4BC00F220FA /* PetTabView.swift in Sources */,
+				22B06CE22A0498750053F919 /* LargeWidget.swift in Sources */,
 				2207339E299905210018AF8E /* EliminationCalendarView.swift in Sources */,
 				223D981429FB5587000432C4 /* PeeView.swift in Sources */,
 				22073395299816860018AF8E /* AddHouseholdView.swift in Sources */,
@@ -970,7 +1020,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DailyScoop/DailyScoop.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_ASSET_PATHS = "\"DailyScoop/Preview Content\"";
 				DEVELOPMENT_TEAM = 89JNN3239D;
 				ENABLE_PREVIEWS = YES;
@@ -1005,7 +1055,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DailyScoop/DailyScoop.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 20;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_ASSET_PATHS = "\"DailyScoop/Preview Content\"";
 				DEVELOPMENT_TEAM = 89JNN3239D;
 				ENABLE_PREVIEWS = YES;

@@ -37,7 +37,7 @@ struct PetRowView: View {
                             .scaledToFit()
                             .frame(width: 104, height: 104)
                             .clipShape(Circle())
-                            .shadow(color: Color("shdaow"), radius: 2, x: 0, y: 3)
+                            .shadow(color: Color("shadow"), radius: 2, x: 0, y: 3)
                     }
                 }
                 .padding(.leading, -8)
@@ -153,12 +153,12 @@ struct PetRowView: View {
                 }
                 .padding(.horizontal, 4)
             }
-        }
-        if calculateBirthday(with: pet.birthday!) {
-            Text("**Happy Birthday, \(pet.name!)!**")
-                .font(.callout)
-                .fontWeight(.medium)
-                .foregroundColor(Color("mainColor"))
+            if calculateBirthday(with: pet.birthday!) {
+                Text("**Happy Birthday, \(pet.name!)!**")
+                    .font(.callout)
+                    .fontWeight(.medium)
+                    .foregroundColor(Color("mainColor"))
+            }
         }
     }
     
