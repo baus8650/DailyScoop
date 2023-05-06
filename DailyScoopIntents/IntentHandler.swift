@@ -66,6 +66,8 @@ extension IntentHandler: PetsIntentHandling {
             }
             let filteredIntents = intents.filter {
                 $0.household != nil
+            }.sorted {
+                $0.household! < $1.household!
             }
             
             let collection = INObjectCollection(items: filteredIntents)
