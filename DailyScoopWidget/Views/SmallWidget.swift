@@ -15,6 +15,7 @@ struct SmallWidget: View {
             LinearGradient(colors: [Color("darkPurple"), Color("lightPurple")], startPoint: .topLeading, endPoint: .bottomTrailing)
                 .ignoresSafeArea()
             RoundedRectangle(cornerRadius: 12)
+                .fill(Color("buttonBackground"))
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding(.vertical, 12)
                 .padding(.horizontal, 20)

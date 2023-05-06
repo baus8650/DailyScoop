@@ -86,6 +86,9 @@
 		22B06CE22A0498750053F919 /* LargeWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B06CE12A0498750053F919 /* LargeWidget.swift */; };
 		22B06CE32A0498750053F919 /* LargeWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B06CE12A0498750053F919 /* LargeWidget.swift */; };
 		22B06CE42A0498750053F919 /* LargeWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B06CE12A0498750053F919 /* LargeWidget.swift */; };
+		22B06CE62A067C200053F919 /* LockScreenRectangularWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B06CE52A067C200053F919 /* LockScreenRectangularWidget.swift */; };
+		22B06CE72A067C200053F919 /* LockScreenRectangularWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B06CE52A067C200053F919 /* LockScreenRectangularWidget.swift */; };
+		22B06CE82A067C200053F919 /* LockScreenRectangularWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B06CE52A067C200053F919 /* LockScreenRectangularWidget.swift */; };
 		22C00BA629D133B800D39FD1 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 22C00BA529D133B800D39FD1 /* Localizable.stringsdict */; };
 		22CC81AD29B18FFA0074E7F3 /* EditEliminationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC81AC29B18FFA0074E7F3 /* EditEliminationView.swift */; };
 		22FAFF05299949D700E836A6 /* EliminationCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FAFF04299949D700E836A6 /* EliminationCellView.swift */; };
@@ -198,6 +201,7 @@
 		226B20892997C89E008852B4 /* PetDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetDetailView.swift; sourceTree = "<group>"; };
 		226B208B2997D117008852B4 /* AddEliminationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEliminationView.swift; sourceTree = "<group>"; };
 		22B06CE12A0498750053F919 /* LargeWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeWidget.swift; sourceTree = "<group>"; };
+		22B06CE52A067C200053F919 /* LockScreenRectangularWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockScreenRectangularWidget.swift; sourceTree = "<group>"; };
 		22C00BA529D133B800D39FD1 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
 		22CC81AC29B18FFA0074E7F3 /* EditEliminationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEliminationView.swift; sourceTree = "<group>"; };
 		22FAFF04299949D700E836A6 /* EliminationCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EliminationCellView.swift; sourceTree = "<group>"; };
@@ -343,6 +347,7 @@
 				224176122A03D2BE00758885 /* SmallWidget.swift */,
 				2241761B2A047E0D00758885 /* MediumWidget.swift */,
 				22B06CE12A0498750053F919 /* LargeWidget.swift */,
+				22B06CE52A067C200053F919 /* LockScreenRectangularWidget.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -670,6 +675,7 @@
 				22B06CE32A0498750053F919 /* LargeWidget.swift in Sources */,
 				223D97FA29F7482F000432C4 /* WidgetConstants.swift in Sources */,
 				223D97CE29F743C7000432C4 /* DailyScoopWidgetBundle.swift in Sources */,
+				22B06CE72A067C200053F919 /* LockScreenRectangularWidget.swift in Sources */,
 				2241761E2A047EE100758885 /* MediumWidget.swift in Sources */,
 				223D980529F75672000432C4 /* CoreDataStack.swift in Sources */,
 			);
@@ -691,6 +697,7 @@
 				22B06CE42A0498750053F919 /* LargeWidget.swift in Sources */,
 				223D97FD29F74CDE000432C4 /* Utilities.swift in Sources */,
 				223D97F229F74658000432C4 /* DailyScoopWidget.intentdefinition in Sources */,
+				22B06CE82A067C200053F919 /* LockScreenRectangularWidget.swift in Sources */,
 				2241761D2A047EE100758885 /* MediumWidget.swift in Sources */,
 				223D980629F75672000432C4 /* CoreDataStack.swift in Sources */,
 			);
@@ -729,6 +736,7 @@
 				222F93E129AAED460015307B /* ReportAccidentView.swift in Sources */,
 				224176102A0348BA00758885 /* TestView.swift in Sources */,
 				226B204A2997AC3E008852B4 /* DailyScoopApp.swift in Sources */,
+				22B06CE62A067C200053F919 /* LockScreenRectangularWidget.swift in Sources */,
 				226B207B2997B14A008852B4 /* AddPetView.swift in Sources */,
 				226B20832997B936008852B4 /* CloudSharingController.swift in Sources */,
 				226B208C2997D117008852B4 /* AddEliminationView.swift in Sources */,
@@ -1020,7 +1028,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DailyScoop/DailyScoop.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 23;
+				CURRENT_PROJECT_VERSION = 26;
 				DEVELOPMENT_ASSET_PATHS = "\"DailyScoop/Preview Content\"";
 				DEVELOPMENT_TEAM = 89JNN3239D;
 				ENABLE_PREVIEWS = YES;
@@ -1055,7 +1063,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DailyScoop/DailyScoop.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 23;
+				CURRENT_PROJECT_VERSION = 26;
 				DEVELOPMENT_ASSET_PATHS = "\"DailyScoop/Preview Content\"";
 				DEVELOPMENT_TEAM = 89JNN3239D;
 				ENABLE_PREVIEWS = YES;

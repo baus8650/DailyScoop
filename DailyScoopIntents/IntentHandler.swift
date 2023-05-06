@@ -59,7 +59,6 @@ extension IntentHandler: PetsIntentHandling {
             let pets = try context.fetch(petFetchRequest)
             let intents = pets.map {
                 let pet = PetIntent(identifier: $0["name"] as? String ?? "", display: String("\($0["name"] as? String ?? ""), (\($0["household.name"] as? String ?? ""))"))
-                print("HERE'S A PET \($0["name"]) from \($0["household.name"])")
                 pet.name = $0["name"] as? String
                 pet.household = $0["household.name"] as? String
                 return pet

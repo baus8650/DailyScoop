@@ -29,7 +29,7 @@ struct LargeWidget: View {
             LinearGradient(colors: [Color("darkPurple"), Color("lightPurple")], startPoint: .topLeading, endPoint: .bottomTrailing)
                 .ignoresSafeArea()
             RoundedRectangle(cornerRadius: 12)
-//                .fill(Color("system"))
+                .fill(Color("buttonBackground"))
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .padding(.vertical, 12)
                 .padding(.horizontal, 20)
@@ -192,32 +192,36 @@ struct LargeWidget: View {
                     }
                     Chart {
                         ForEach(entry.eliminations) { elimination in
-                            if elimination.type == 1 {
-                                if elimination.wasAccident {
-                                    RectangleMark(x: .value("Time", elimination.time!), y: .value("type", 2), width: 12, height: 28)
-                                        .foregroundStyle(
-                                            LinearGradient(colors: [Color("peeColor"), Color("accidentColor")], startPoint: .top, endPoint: .bottom)
-                                        )
-                                        .cornerRadius(6)
-                                } else {
-                                    RectangleMark(x: .value("Time", elimination.time!), y: .value("type", 2), width: 12, height: 28)
-                                        .foregroundStyle(Color("peeColor"))
-                                        .cornerRadius(6)
+                            if Calendar.current.isDateInToday(elimination.time!) {
+                                if elimination.type == 1 {
+                                    if elimination.wasAccident {
+                                        RectangleMark(x: .value("Time", elimination.time!), y: .value("type", 2), width: 12, height: 28)
+                                            .foregroundStyle(
+                                                LinearGradient(colors: [Color("peeColor"), Color("accidentColor")], startPoint: .top, endPoint: .bottom)
+                                            )
+                                            .cornerRadius(6)
+                                    } else {
+                                        RectangleMark(x: .value("Time", elimination.time!), y: .value("type", 2), width: 12, height: 28)
+                                            .foregroundStyle(Color("peeColor"))
+                                            .cornerRadius(6)
+                                    }
                                 }
                             }
                         }
                         ForEach(entry.eliminations) { elimination in
-                            if elimination.type == 2 {
-                                if elimination.wasAccident {
-                                    RectangleMark(x: .value("Time", elimination.time!), y: .value("type", 1), width: 12, height: 28)
-                                        .foregroundStyle(
-                                            LinearGradient(colors: [Color("poopColor"), Color("accidentColor")], startPoint: .top, endPoint: .bottom)
-                                        )
-                                        .cornerRadius(6)
-                                } else {
-                                    RectangleMark(x: .value("Time", elimination.time!), y: .value("type", 1), width: 12, height: 28)
-                                        .foregroundStyle(Color("poopColor"))
-                                        .cornerRadius(6)
+                            if Calendar.current.isDateInToday(elimination.time!) {
+                                if elimination.type == 2 {
+                                    if elimination.wasAccident {
+                                        RectangleMark(x: .value("Time", elimination.time!), y: .value("type", 1), width: 12, height: 28)
+                                            .foregroundStyle(
+                                                LinearGradient(colors: [Color("poopColor"), Color("accidentColor")], startPoint: .top, endPoint: .bottom)
+                                            )
+                                            .cornerRadius(6)
+                                    } else {
+                                        RectangleMark(x: .value("Time", elimination.time!), y: .value("type", 1), width: 12, height: 28)
+                                            .foregroundStyle(Color("poopColor"))
+                                            .cornerRadius(6)
+                                    }
                                 }
                             }
                         }

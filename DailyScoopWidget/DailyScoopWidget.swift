@@ -74,6 +74,8 @@ struct DailyScoopWidgetView: View {
             MediumWidget(entry: entry)
         case .systemLarge:
             LargeWidget(entry: entry)
+        case .accessoryRectangular:
+            LockScreenRectangularWidget(entry: entry)
         default:
             EmptyView()
         }
@@ -89,7 +91,7 @@ struct DailyScoopWidget: Widget {
         }
         .configurationDisplayName("My Widget")
         .description("This is an example widget.")
-        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
+        .supportedFamilies([.systemSmall, .systemMedium, .systemLarge, .accessoryRectangular])
     }
 }
 
