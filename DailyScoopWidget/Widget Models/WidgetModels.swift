@@ -12,14 +12,15 @@ struct WidgetPet {
     var name: String
     var birthday: Date
     var weight: Double
-    var peeEntries: [WidgetElimination]
-    var poopEntries: [WidgetElimination]
-    var accidentEntries: [WidgetElimination]
+    var eliminations: [WidgetElimination]
+    var picture: Data?
 }
 
-struct WidgetElimination {
+struct WidgetElimination: Identifiable {
+    var id = UUID()
     var date: Date
-    var type: WidgetEliminationType
+    var type: Int16
+    var wasAccident: Bool
 }
 
 enum WidgetEliminationType {

@@ -13,23 +13,30 @@ struct AddHouseholdView: View {
     private let stack = CoreDataStack.shared
     @State var name: String = ""
     var body: some View {
-        Form {
-            TextField("Household name", text: $name)
-                .textInputAutocapitalization(.words)
-            HStack(spacing: 48) {
-                Spacer()
-                Button {
-                    saveHousehold()
-                } label: {
-                    Text("Save")
+        ZStack {
+            Color("background")
+                .ignoresSafeArea()
+            VStack {
+                Form {
+                    TextField("Household name", text: $name)
+                        .textInputAutocapitalization(.words)
                 }
-                Button {
-                    dismiss()
-                } label: {
-                    Text("Cancel")
-                        .foregroundColor(.red)
+                HStack(spacing: 48) {
+                    Spacer()
+                    Button {
+                        saveHousehold()
+                    } label: {
+                        Text("Save")
+                    }
+                    Button {
+                        dismiss()
+                    } label: {
+                        Text("Cancel")
+                            .foregroundColor(.red)
+                    }
+                    Spacer()
                 }
-                Spacer()
+                .padding(.bottom, 12)
             }
         }
     }

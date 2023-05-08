@@ -8,6 +8,7 @@
 import CoreData
 import Foundation
 import SwiftUI
+import WidgetKit
 
 struct DaySpecificEliminationsView: View {
     @ObservedObject var pet: Pet
@@ -153,6 +154,7 @@ struct DaySpecificEliminationsView: View {
                 Button("Delete", role: .destructive) {
                     if let elimination = eliminationToDelete {
                         stack.delete(elimination)
+                        WidgetCenter.shared.reloadAllTimelines()
                     }
                     eliminationToDelete = nil
                 }

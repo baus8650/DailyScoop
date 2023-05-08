@@ -5,11 +5,63 @@
 //  Created by Tim Bausch on 2/11/23.
 //
 
+import Foundation
 import CoreData
 import CloudKit
+import UIKit
 
 final class CoreDataStack: ObservableObject {
     static let shared = CoreDataStack()
+    
+    static var preview: CoreDataStack = {
+        let result = CoreDataStack(inMemory: true)
+        let viewContext = result.persistentContainer.viewContext
+        let pet = Pet(context: viewContext)
+        pet.name = "Penny"
+        pet.birthday = Calendar.current.date(from: DateComponents(year: 2012, month: 9, day: 5))
+        pet.gender = 1
+        pet.weight = 27.5
+        var image = UIImage(named: "penny")!
+        image = image.rotateImage()!
+        let data = image.jpegData(compressionQuality: 1.0)
+        pet.picture = data
+        let startOfDay = Calendar.current.startOfDay(for: Date())
+        
+        let pee = Elimination(context: viewContext)
+        pee.pet = pet
+        pee.time = Calendar.current.date(byAdding: DateComponents(hour: 8, minute: 27), to: startOfDay)
+        pee.type = 1
+        
+        let poop = Elimination(context: viewContext)
+        poop.pet = pet
+        poop.time = Calendar.current.date(byAdding: DateComponents(hour: 8, minute: 31), to: startOfDay)
+        poop.type = 2
+        
+        let pee2 = Elimination(context: viewContext)
+        pee2.pet = pet
+        pee2.time = Calendar.current.date(byAdding: DateComponents(hour: 12, minute: 48), to: startOfDay)
+        pee2.type = 1
+        
+        let pee3 = Elimination(context: viewContext)
+        pee3.pet = pet
+        pee3.time = Calendar.current.date(byAdding: DateComponents(hour: 18, minute: 7), to: startOfDay)
+        pee3.type = 1
+        
+        let poop2 = Elimination(context: viewContext)
+        poop2.pet = pet
+        poop2.time = Calendar.current.date(byAdding: DateComponents(hour: 18, minute: 9), to: startOfDay)
+        poop2.type = 2
+        
+        do {
+            try viewContext.save()
+        } catch {
+            // Replace this implementation with code to handle the error appropriately.
+            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+        return result
+    }()
     
     var ckContainer: CKContainer {
         let storeDescription = persistentContainer.persistentStoreDescriptions.first
@@ -94,6 +146,20 @@ final class CoreDataStack: ObservableObject {
     
     private var _privatePersistentStore: NSPersistentStore?
     private var _sharedPersistentStore: NSPersistentStore?
+    
+    init(inMemory: Bool = false) {
+        persistentContainer = NSPersistentCloudKitContainer(name: "DailyScoop")
+        if inMemory {
+            persistentContainer.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
+        }
+        persistentContainer.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            if let error = error as NSError? {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        })
+        persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
+    }
+    
     private init() {}
 }
 
@@ -197,5 +263,18 @@ public extension URL {
         }
         
         return fileContainer.appendingPathComponent("\(databaseName).sqlite")
+    }
+}
+
+extension UIImage {
+    func rotateImage()-> UIImage?  {
+        if (self.imageOrientation == UIImage.Orientation.up ) {
+            return self
+        }
+        UIGraphicsBeginImageContext(self.size)
+        self.draw(in: CGRect(origin: CGPoint.zero, size: self.size))
+        let copy = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return copy
     }
 }

@@ -56,4 +56,34 @@ final class WidgetUtilities {
         
         return []
     }
+    
+    static func getHousehold(from household: String) -> Household? {
+        let fetchRequest: NSFetchRequest<Household>
+        fetchRequest = Household.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", household)
+        fetchRequest.fetchLimit = 1
+        
+        do {
+            let household = try context.fetch(fetchRequest)
+            if household.count == 1 {
+                return household[0]
+            }
+        } catch {
+            print("Error getting household")
+        }
+        return nil
+    }
+    
+    static func getPetForDeeplink(pet: URL) -> Pet? {
+        let objectID = context.persistentStoreCoordinator?.managedObjectID(forURIRepresentation: pet)
+        print("HERE IS OBJECT ID \(objectID)")
+        do {
+            let pet = try context.existingObject(with: objectID!)
+            
+            return pet as? Pet
+        } catch {
+            print("Error")
+        }
+        return nil
+    }
 }

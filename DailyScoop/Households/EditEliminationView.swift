@@ -7,6 +7,7 @@
 
 import CoreData
 import SwiftUI
+import WidgetKit
 
 struct EditEliminationView: View {
     @Environment(\.managedObjectContext) private var managedObjectContext
@@ -58,6 +59,7 @@ struct EditEliminationView: View {
                 Spacer()
                 Button {
                     saveElimination(elimination: elimination)
+                    WidgetCenter.shared.reloadAllTimelines()
                 } label: {
                     Text("Save")
                 }

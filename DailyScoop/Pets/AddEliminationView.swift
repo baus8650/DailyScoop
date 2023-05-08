@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WidgetKit
 
 struct AddEliminationView: View {
     @Environment(\.managedObjectContext) private var managedObjectContext
@@ -58,6 +59,7 @@ struct AddEliminationView: View {
                         } else {
                             showEmptyTypeAlert = true
                         }
+                        WidgetCenter.shared.reloadAllTimelines()
                         dismiss()
                     } label: {
                         Text("Save")

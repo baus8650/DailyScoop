@@ -12,44 +12,45 @@ import Intents
 
 struct Provider: IntentTimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), configuration: PetsIntent(), pet: nil, eliminations: [])
+        return SimpleEntry(date: Date(), configuration: PetsIntent(), pet: WidgetConstants.widgetPet)
     }
 
     func getSnapshot(for configuration: PetsIntent, in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), configuration: configuration, pet: nil, eliminations: [])
+        let entry = SimpleEntry(date: Date(), configuration: configuration, pet: WidgetConstants.widgetPet)
+        
         completion(entry)
     }
 
     func getTimeline(for configuration: PetsIntent, in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> ()) {
-//        var entries: [SimpleEntry] = []
-
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-//        let pet = WidgetUtilities.fetch(from: configuration.household?.name ?? "")
-//        }
-//        try? CoreDataStack.shared.context.setQueryGenerationFrom(.current)
-//        try? CoreDataStack.shared.context.setQueryGenerationFrom(.current)
-//        CoreDataStack.shared.context.refreshAllObjects()
-
+        
         let pet = WidgetUtilities.fetch(configuration.pet?.name ?? "", from: configuration.pet?.household ?? "")
         let eliminations = WidgetUtilities.fetchEliminations(for: pet)
         let currentDate = Date()
-        let entry = SimpleEntry(date: currentDate, configuration: configuration, pet: pet, eliminations: eliminations)
-//        for hourOffset in 0 ..< 5 {
-//            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-//            let entry = SimpleEntry(date: entryDate, configuration: configuration, pet: pet, eliminations: eliminations)
-//            entries.append(entry)
-//        }
-        
-        let timeline = Timeline(entries: [entry], policy: .atEnd)
-        completion(timeline)
+        let nextCheck = Calendar.current.date(byAdding: DateComponents(minute: 5), to: currentDate)
+        if let pet {
+            let widgetPet = WidgetPet(id: pet.objectID.uriRepresentation().absoluteString, name: pet.name!, birthday: pet.birthday!, weight: pet.weight, eliminations: eliminations.map { WidgetElimination(date: $0.time!, type: $0.type, wasAccident: $0.wasAccident)})
+            let entry = SimpleEntry(date: nextCheck!, configuration: configuration, pet: widgetPet)
+            
+            let timeline = Timeline(entries: [entry], policy: .atEnd)
+            completion(timeline)
+        } else {
+            let entry = SimpleEntry(date: nextCheck!, configuration: configuration, pet: nil)
+        }
     }
 }
 
 struct SimpleEntry: TimelineEntry {
     let date: Date
     let configuration: PetsIntent
-    let pet: Pet?
-    let eliminations: [Elimination]
+    let pet: WidgetPet?
+//    let eliminations: [Elimination]
+}
+
+struct SnapshotEntry: TimelineEntry {
+    let date: Date
+    let configuration: PetsIntent
+    let pet: WidgetPet
+    let eliminations: [WidgetElimination]
 }
 
 //struct DailyScoopWidgetEntryView : View {
@@ -89,15 +90,16 @@ struct DailyScoopWidget: Widget {
         IntentConfiguration(kind: kind, intent: PetsIntent.self, provider: Provider()) { entry in
             DailyScoopWidgetView(entry: entry)
         }
-        .configurationDisplayName("My Widget")
-        .description("This is an example widget.")
+        .configurationDisplayName("Daily Scoop")
+        .description("View your pet's elimination data right on your home or lock screen!")
         .supportedFamilies([.systemSmall, .systemMedium, .systemLarge, .accessoryRectangular])
+        
     }
 }
 
 struct DailyScoopWidget_Previews: PreviewProvider {
     static var previews: some View {
-        DailyScoopWidgetView(entry: SimpleEntry(date: Date(), configuration: PetsIntent(), pet: nil, eliminations: []))
+        DailyScoopWidgetView(entry: SimpleEntry(date: Date(), configuration: PetsIntent(), pet: nil))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
     }
 }

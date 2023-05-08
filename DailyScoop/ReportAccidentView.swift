@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WidgetKit
 
 struct ReportAccidentView: View {
     @Environment(\.dismiss) var dismiss
@@ -28,6 +29,7 @@ struct ReportAccidentView: View {
                 VStack(spacing: 16) {
                     Button {
                         recordAccidentPee(pet: pet)
+                        WidgetCenter.shared.reloadAllTimelines()
                         confirmation = true
                         dismiss()
                     } label: {
@@ -44,6 +46,7 @@ struct ReportAccidentView: View {
                     Button {
                         recordAccidentPoop(pet: pet)
                         confirmation = true
+                        WidgetCenter.shared.reloadAllTimelines()
                         dismiss()
                     } label: {
                         Text("\(pet.gender == 0 ? "She" : "He") pooped.")

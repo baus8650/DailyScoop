@@ -171,6 +171,7 @@ struct HouseholdDetailView: View {
         .sheet(item: $isShowingAccidentView) { pet in
             ReportAccidentView(confirmation: $isShowingAccidentConfirmation, pet: pet)
                 .presentationDetents([.height(315)])
+                .presentationDragIndicator(.visible)
                 .onDisappear {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                         withAnimation(.easeOut(duration: 0.75)) {

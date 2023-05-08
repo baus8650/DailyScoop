@@ -59,7 +59,6 @@
 		224176102A0348BA00758885 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2241760F2A0348BA00758885 /* TestView.swift */; };
 		224176132A03D2BE00758885 /* SmallWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224176122A03D2BE00758885 /* SmallWidget.swift */; };
 		224176142A03D34000758885 /* SmallWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224176122A03D2BE00758885 /* SmallWidget.swift */; };
-		224176152A03D34000758885 /* SmallWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224176122A03D2BE00758885 /* SmallWidget.swift */; };
 		224176162A03D36B00758885 /* DailyScoopWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223D97CF29F743C7000432C4 /* DailyScoopWidget.swift */; };
 		224176172A03D3B400758885 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 226B204D2997AC3F008852B4 /* Assets.xcassets */; };
 		224176182A03D3B500758885 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 226B204D2997AC3F008852B4 /* Assets.xcassets */; };
@@ -82,6 +81,9 @@
 		226B20882997C572008852B4 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226B20872997C572008852B4 /* ImagePicker.swift */; };
 		226B208A2997C89E008852B4 /* PetDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226B20892997C89E008852B4 /* PetDetailView.swift */; };
 		226B208C2997D117008852B4 /* AddEliminationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226B208B2997D117008852B4 /* AddEliminationView.swift */; };
+		2276814E2A082588000C632D /* SmallWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224176122A03D2BE00758885 /* SmallWidget.swift */; };
+		227681502A0825C5000C632D /* WidgetBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2276814F2A0825C5000C632D /* WidgetBackground.swift */; };
+		227681512A0825C5000C632D /* WidgetBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2276814F2A0825C5000C632D /* WidgetBackground.swift */; };
 		22B06CE02A0489750053F919 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223D97E729F74468000432C4 /* IntentHandler.swift */; };
 		22B06CE22A0498750053F919 /* LargeWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B06CE12A0498750053F919 /* LargeWidget.swift */; };
 		22B06CE32A0498750053F919 /* LargeWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B06CE12A0498750053F919 /* LargeWidget.swift */; };
@@ -200,6 +202,8 @@
 		226B20872997C572008852B4 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		226B20892997C89E008852B4 /* PetDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetDetailView.swift; sourceTree = "<group>"; };
 		226B208B2997D117008852B4 /* AddEliminationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEliminationView.swift; sourceTree = "<group>"; };
+		2276814D2A06E5CF000C632D /* DailyScoop v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DailyScoop v3.xcdatamodel"; sourceTree = "<group>"; };
+		2276814F2A0825C5000C632D /* WidgetBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetBackground.swift; sourceTree = "<group>"; };
 		22B06CE12A0498750053F919 /* LargeWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeWidget.swift; sourceTree = "<group>"; };
 		22B06CE52A067C200053F919 /* LockScreenRectangularWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockScreenRectangularWidget.swift; sourceTree = "<group>"; };
 		22C00BA529D133B800D39FD1 /* Localizable.stringsdict */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; path = Localizable.stringsdict; sourceTree = "<group>"; };
@@ -344,6 +348,7 @@
 		224176112A03D2B100758885 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				227681522A0825C7000C632D /* Components */,
 				224176122A03D2BE00758885 /* SmallWidget.swift */,
 				2241761B2A047E0D00758885 /* MediumWidget.swift */,
 				22B06CE12A0498750053F919 /* LargeWidget.swift */,
@@ -468,6 +473,14 @@
 				224175ED29FEB9EF00758885 /* PetRowView.swift */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		227681522A0825C7000C632D /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				2276814F2A0825C5000C632D /* WidgetBackground.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -673,6 +686,7 @@
 				223D980A29F757FD000432C4 /* WidgetModels.swift in Sources */,
 				223D97F029F74650000432C4 /* IntentHandler.swift in Sources */,
 				22B06CE32A0498750053F919 /* LargeWidget.swift in Sources */,
+				227681512A0825C5000C632D /* WidgetBackground.swift in Sources */,
 				223D97FA29F7482F000432C4 /* WidgetConstants.swift in Sources */,
 				223D97CE29F743C7000432C4 /* DailyScoopWidgetBundle.swift in Sources */,
 				22B06CE72A067C200053F919 /* LockScreenRectangularWidget.swift in Sources */,
@@ -690,7 +704,7 @@
 				223D97FF29F74E04000432C4 /* DailyScoopWidgetBundle.swift in Sources */,
 				223D97FB29F7482F000432C4 /* WidgetConstants.swift in Sources */,
 				223D980129F74EAA000432C4 /* DailyScoop.xcdatamodeld in Sources */,
-				224176152A03D34000758885 /* SmallWidget.swift in Sources */,
+				2276814E2A082588000C632D /* SmallWidget.swift in Sources */,
 				22B06CE02A0489750053F919 /* IntentHandler.swift in Sources */,
 				223D980B29F757FD000432C4 /* WidgetModels.swift in Sources */,
 				223D97FE29F74DF7000432C4 /* DailyScoopWidget.swift in Sources */,
@@ -725,6 +739,7 @@
 				223D97D629F743C8000432C4 /* DailyScoopWidget.intentdefinition in Sources */,
 				226B20532997AC3F008852B4 /* Persistence.swift in Sources */,
 				223D981629FB5A35000432C4 /* AccidentView.swift in Sources */,
+				227681502A0825C5000C632D /* WidgetBackground.swift in Sources */,
 				22CC81AD29B18FFA0074E7F3 /* EditEliminationView.swift in Sources */,
 				220733972998183B0018AF8E /* HouseholdDetailView.swift in Sources */,
 				223D97F129F74653000432C4 /* IntentHandler.swift in Sources */,
@@ -1028,7 +1043,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DailyScoop/DailyScoop.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 26;
+				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_ASSET_PATHS = "\"DailyScoop/Preview Content\"";
 				DEVELOPMENT_TEAM = 89JNN3239D;
 				ENABLE_PREVIEWS = YES;
@@ -1063,7 +1078,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DailyScoop/DailyScoop.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 26;
+				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_ASSET_PATHS = "\"DailyScoop/Preview Content\"";
 				DEVELOPMENT_TEAM = 89JNN3239D;
 				ENABLE_PREVIEWS = YES;
@@ -1229,6 +1244,7 @@
 		226B20542997AC3F008852B4 /* DailyScoop.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				2276814D2A06E5CF000C632D /* DailyScoop v3.xcdatamodel */,
 				222F93E229ABAC550015307B /* DailyScoop v2.xcdatamodel */,
 				226B20552997AC3F008852B4 /* DailyScoop.xcdatamodel */,
 			);
