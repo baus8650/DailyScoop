@@ -106,8 +106,18 @@ struct PetChartView: View {
                                     }
                                 }
                             } else {
-                                AxisMarks (values: .stride (by: .day)) { value in
-                                    AxisValueLabel(format: .dateTime.month(.defaultDigits).day(), centered: true)
+                                if sampleSize == .month {
+                                    AxisMarks (values: .stride (by: .day, count: 3)) { value in
+//                                        let date = value.as(Date.self)
+//                                        let components = Calendar.current.dateComponents([.day], from: date ?? Date())
+//                                        if (components.day ?? 1) % 5 == 1 {
+                                            AxisValueLabel(format: .dateTime.month(.defaultDigits).day(), centered: true)
+//                                        }
+                                    }
+                                } else {
+                                    AxisMarks (values: .stride (by: .day)) { value in
+                                        AxisValueLabel(format: .dateTime.month(.defaultDigits).day(), centered: true)
+                                    }
                                 }
                             }
                         }

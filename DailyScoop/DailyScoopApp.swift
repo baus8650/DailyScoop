@@ -8,6 +8,7 @@
 import SwiftUI
 import WidgetKit
 
+
 @main
 struct DailyScoopApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
