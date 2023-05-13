@@ -194,8 +194,10 @@ struct PetDetailView: View {
     }
     
     private func calculateYearsOld(with birthday: Date) -> String {
-        let beginningOfDay = Calendar.current.startOfDay(for: birthday)
-        let ageComponents = Calendar.current.dateComponents([.year, .month], from: beginningOfDay, to: .now)
+        var calendar = Calendar.current
+        calendar.timeZone = TimeZone(identifier: "UTC")!
+        let beginningOfDay = calendar.startOfDay(for: birthday)
+        let ageComponents = calendar.dateComponents([.year, .month], from: beginningOfDay, to: .now)
         if ageComponents.year! == 0 {
             let formatString : String = NSLocalizedString("pet_age_months", comment: "Month string determined in Localized.stringsdict")
             return String.localizedStringWithFormat(formatString, ageComponents.month!)
