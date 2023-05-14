@@ -81,6 +81,9 @@
 		226B20882997C572008852B4 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226B20872997C572008852B4 /* ImagePicker.swift */; };
 		226B208A2997C89E008852B4 /* PetDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226B20892997C89E008852B4 /* PetDetailView.swift */; };
 		226B208C2997D117008852B4 /* AddEliminationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226B208B2997D117008852B4 /* AddEliminationView.swift */; };
+		226CE4F52A0FB0340017B7A7 /* HouseholdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226CE4F42A0FB0340017B7A7 /* HouseholdView.swift */; };
+		226CE4F72A10FC910017B7A7 /* EliminationHistoryCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226CE4F62A10FC910017B7A7 /* EliminationHistoryCalendarView.swift */; };
+		226CE4F92A10FCFA0017B7A7 /* EliminationHistoryGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226CE4F82A10FCFA0017B7A7 /* EliminationHistoryGridView.swift */; };
 		2276814E2A082588000C632D /* SmallWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224176122A03D2BE00758885 /* SmallWidget.swift */; };
 		227681502A0825C5000C632D /* WidgetBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2276814F2A0825C5000C632D /* WidgetBackground.swift */; };
 		227681512A0825C5000C632D /* WidgetBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2276814F2A0825C5000C632D /* WidgetBackground.swift */; };
@@ -202,6 +205,9 @@
 		226B20872997C572008852B4 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		226B20892997C89E008852B4 /* PetDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetDetailView.swift; sourceTree = "<group>"; };
 		226B208B2997D117008852B4 /* AddEliminationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEliminationView.swift; sourceTree = "<group>"; };
+		226CE4F42A0FB0340017B7A7 /* HouseholdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseholdView.swift; sourceTree = "<group>"; };
+		226CE4F62A10FC910017B7A7 /* EliminationHistoryCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EliminationHistoryCalendarView.swift; sourceTree = "<group>"; };
+		226CE4F82A10FCFA0017B7A7 /* EliminationHistoryGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EliminationHistoryGridView.swift; sourceTree = "<group>"; };
 		2276814D2A06E5CF000C632D /* DailyScoop v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DailyScoop v3.xcdatamodel"; sourceTree = "<group>"; };
 		2276814F2A0825C5000C632D /* WidgetBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetBackground.swift; sourceTree = "<group>"; };
 		22B06CE12A0498750053F919 /* LargeWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeWidget.swift; sourceTree = "<group>"; };
@@ -402,6 +408,9 @@
 				2207339A299904950018AF8E /* CalendarView.swift */,
 				222F93E029AAED460015307B /* ReportAccidentView.swift */,
 				223D980C29FB3D8B000432C4 /* ConfirmationPopover.swift */,
+				226CE4F42A0FB0340017B7A7 /* HouseholdView.swift */,
+				226CE4F62A10FC910017B7A7 /* EliminationHistoryCalendarView.swift */,
+				226CE4F82A10FCFA0017B7A7 /* EliminationHistoryGridView.swift */,
 			);
 			path = DailyScoop;
 			sourceTree = "<group>";
@@ -726,9 +735,11 @@
 				226B20812997B8A3008852B4 /* CoreDataStack.swift in Sources */,
 				2207339B299904950018AF8E /* CalendarView.swift in Sources */,
 				223D97C129F609F3000432C4 /* PetChartView.swift in Sources */,
+				226CE4F92A10FCFA0017B7A7 /* EliminationHistoryGridView.swift in Sources */,
 				223D97F529F74737000432C4 /* Utilities.swift in Sources */,
 				223D980929F75722000432C4 /* WidgetModels.swift in Sources */,
 				224175F02A01AF3800758885 /* NotesView.swift in Sources */,
+				226CE4F52A0FB0340017B7A7 /* HouseholdView.swift in Sources */,
 				223D981129FB3E32000432C4 /* PoopView.swift in Sources */,
 				220733A029990A2A0018AF8E /* DaySpecificEliminationsView.swift in Sources */,
 				226B208A2997C89E008852B4 /* PetDetailView.swift in Sources */,
@@ -759,6 +770,7 @@
 				226B207E2997B1D7008852B4 /* Constants.swift in Sources */,
 				2268A2B029B3F4BC00F220FA /* PetTabView.swift in Sources */,
 				22B06CE22A0498750053F919 /* LargeWidget.swift in Sources */,
+				226CE4F72A10FC910017B7A7 /* EliminationHistoryCalendarView.swift in Sources */,
 				2207339E299905210018AF8E /* EliminationCalendarView.swift in Sources */,
 				223D981429FB5587000432C4 /* PeeView.swift in Sources */,
 				22073395299816860018AF8E /* AddHouseholdView.swift in Sources */,
@@ -1043,7 +1055,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DailyScoop/DailyScoop.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 30;
+				CURRENT_PROJECT_VERSION = 35;
 				DEVELOPMENT_ASSET_PATHS = "\"DailyScoop/Preview Content\"";
 				DEVELOPMENT_TEAM = 89JNN3239D;
 				ENABLE_PREVIEWS = YES;
@@ -1078,7 +1090,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = DailyScoop/DailyScoop.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 30;
+				CURRENT_PROJECT_VERSION = 35;
 				DEVELOPMENT_ASSET_PATHS = "\"DailyScoop/Preview Content\"";
 				DEVELOPMENT_TEAM = 89JNN3239D;
 				ENABLE_PREVIEWS = YES;

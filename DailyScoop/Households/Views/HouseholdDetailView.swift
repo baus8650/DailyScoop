@@ -11,7 +11,8 @@ import WidgetKit
 
 struct HouseholdDetailView: View {
     @Environment(\.managedObjectContext) var managedObjectContext
-    @ObservedObject var household: Household
+//    @ObservedObject var household: Household
+    @State var household: Household
     @State var shouldPresentAddPetView: Bool = false
     @State private var showShareSheet = false
     @State private var isShowingAccidentView: Pet? = nil
@@ -28,7 +29,8 @@ struct HouseholdDetailView: View {
     @FetchRequest var pets: FetchedResults<Pet>
     
     init(household: Household) {
-        self.household = household
+        print("IM IN THE FREAKING INIT")
+        _household = State(initialValue: household)
         let predicate = NSPredicate(format: "household == %@", household)
         
         _pets = FetchRequest(
@@ -43,7 +45,7 @@ struct HouseholdDetailView: View {
         ZStack {
             VStack {
                 VStack {
-                    if household.pets?.count == 0 {
+                    if pets.count == 0 {
                         VStack(spacing: 24) {
                             Text("No pets have been added yet!")
                                 .font(.title3)
@@ -56,11 +58,11 @@ struct HouseholdDetailView: View {
                                 Label("Add Pet", systemImage: "plus")
                             }
                         }
-                        .sheet(isPresented: $shouldPresentAddPetView) {
-                            AddPetView(household: household)
-                                .presentationDetents([.height(350)])
-                                .presentationDragIndicator(.visible)
-                        }
+//                        .sheet(isPresented: $shouldPresentAddPetView) {
+//                            AddPetView(household: household)
+//                                .presentationDetents([.height(350)])
+//                                .presentationDragIndicator(.visible)
+//                        }
                     } else {
 //                        Section {
                             List {
@@ -158,11 +160,11 @@ struct HouseholdDetailView: View {
         .onAppear(perform: {
             self.share = stack.getShare(household)
         })
-        .sheet(isPresented: $showShareSheet) {
-            if let share = share {
-                CloudSharingView(share: share, container: stack.ckContainer, household: household)
-            }
-        }
+//        .sheet(isPresented: $showShareSheet) {
+//            if let share = share {
+//                CloudSharingView(share: share, container: stack.ckContainer, household: household)
+//            }
+//        }
         .sheet(isPresented: $shouldPresentAddPetView) {
             AddPetView(household: household)
                 .presentationDetents([.height(350)])
@@ -192,29 +194,6 @@ struct HouseholdDetailView: View {
         }, message: {
             Text("Are you sure you want to delete \(petToDelete?.name ?? "this pet")? Deleting \(petToDelete?.name ?? "this pet") will affect all users you share this household with. This action is permanent cannot be undone!")
         })
-        .navigationTitle("\(household.name ?? "Default House")")
-//        .navigationBarTitleDisplayMode(.large)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    if !stack.isShared(object: household) {
-                        Task {
-                            await createShare(household)
-                        }
-                    }
-                    showShareSheet = true
-                } label: {
-                    Image(systemName: "square.and.arrow.up")
-                }
-            }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    shouldPresentAddPetView = true
-                } label: {
-                    Image("addPet")
-                }
-            }
-        }
     }
     
     private func recordQuickPoop(pet: Pet) {
@@ -297,61 +276,4 @@ struct HouseholdDetailView: View {
     }
 }
 
-extension HouseholdDetailView {
-    private func string(for permission: CKShare.ParticipantPermission) -> String {
-        switch permission {
-        case .unknown:
-            return "Unknown"
-        case .none:
-            return "None"
-        case .readOnly:
-            return "Read-Only"
-        case .readWrite:
-            return "Read-Write"
-        @unknown default:
-            fatalError("A new value added to CKShare.Participant.Permission")
-        }
-    }
-    
-    private func string(for role: CKShare.ParticipantRole) -> String {
-        switch role {
-        case .owner:
-            return "Owner"
-        case .privateUser:
-            return "Private User"
-        case .publicUser:
-            return "Public User"
-        case .unknown:
-            return "Unknown"
-        @unknown default:
-            fatalError("A new value added to CKShare.Participant.Role")
-        }
-    }
-    
-    private func string(for acceptanceStatus: CKShare.ParticipantAcceptanceStatus) -> String {
-        switch acceptanceStatus {
-        case .accepted:
-            return "Accepted"
-        case .removed:
-            return "Removed"
-        case .pending:
-            return "Invited"
-        case .unknown:
-            return "Unknown"
-        @unknown default:
-            fatalError("A new value added to CKShare.Participant.AcceptanceStatus")
-        }
-    }
-    
-    @MainActor
-    private func createShare(_ household: Household) async {
-        do {
-            let (_, share, _) = try await stack.persistentContainer.share([household], to: nil)
-            share[CKShare.SystemFieldKey.title] = household.name
-            self.share = share
-        } catch {
-            print("Failed to create share")
-        }
-    }
-}
 

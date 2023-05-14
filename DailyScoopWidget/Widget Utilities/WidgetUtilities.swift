@@ -60,7 +60,7 @@ final class WidgetUtilities {
     static func getHousehold(from household: String) -> Household? {
         let fetchRequest: NSFetchRequest<Household>
         fetchRequest = Household.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "id == %@", household)
+        fetchRequest.predicate = NSPredicate(format: "name == %@", household)
         fetchRequest.fetchLimit = 1
         
         do {
@@ -85,5 +85,9 @@ final class WidgetUtilities {
             print("Error")
         }
         return nil
+    }
+    
+    static func writeHouseholdToDefaults(household: Household) {
+        
     }
 }

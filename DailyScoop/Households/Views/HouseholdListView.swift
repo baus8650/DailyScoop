@@ -9,6 +9,7 @@ import CloudKit
 import SwiftUI
 
 struct HouseholdListView: View {
+    @Environment(\.dismiss) var dismiss
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .reverse)])
     var households: FetchedResults<Household>
@@ -17,26 +18,9 @@ struct HouseholdListView: View {
     @State private var share: CKShare?
     @State var isShowingDeleteAlert: Bool = false
     @State var selectedHousehold: Household?
-    
-    init() {
-        
-        let appearence = UINavigationBarAppearance()
-        appearence.configureWithOpaqueBackground()
-        appearence.backgroundColor = UIColor(named: "background")
-        appearence.titleTextAttributes = [.foregroundColor: UIColor(named: "mainColor")]
-        appearence.largeTitleTextAttributes = [.foregroundColor: UIColor(named: "mainColor")]
-        appearence.shadowColor = .clear
-        
-        UINavigationBar.appearance().standardAppearance = appearence
-        UINavigationBar.appearance().scrollEdgeAppearance = appearence
-        
-        UINavigationBar.appearance().compactAppearance = appearence
-        UINavigationBar.appearance().tintColor = UIColor(named: "mainColor")
-        
-        //        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor(named: "mainColor")]
-        //        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor(named: "mainColor")]
-        //        UINavigationBar.appearance().barTintColor = UIColor(named: "background")
-    }
+    @State var householdToEdit: Household?
+    @State var householdName: String = ""
+    @State var isShowingEditHousehold: Bool = false
     
     var body: some View {
         //        NavigationStack {
@@ -67,10 +51,8 @@ struct HouseholdListView: View {
         } else {
             List {
                 ForEach(households) { household in
-                    NavigationLink {
-                        HouseholdDetailView(household: household)
-                    } label: {
-                        VStack(alignment: .leading, spacing: 4) {
+                    VStack(alignment: .leading, spacing: 4) {
+                        HStack {
                             Text("\(household.name!)")
                                 .font(.title2)
                                 .fontWeight(.bold)
@@ -89,19 +71,50 @@ struct HouseholdListView: View {
                                         .foregroundColor(.gray)
                                 }
                             }
-                        }
-                    }
-                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                        Button(role: .destructive) {
-                            selectedHousehold = household
-                            isShowingDeleteAlert.toggle()
-                        } label: {
-                            Label("Delete", systemImage: "trash")
+                            Spacer()
+                            Button {
+                                householdName = household.name ?? ""
+                                householdToEdit = household
+                                isShowingEditHousehold.toggle()
+                            } label: {
+                                RoundedRectangle(cornerRadius: 6)
+                                    .fill(Color("buttonBackground"))
+                                    .frame(width: 38, height: 38)
+                                    .overlay(
+                                        Image(systemName: "pencil")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .foregroundColor(Color("mainColor"))
+                                            .padding(8)
+                                        
+                                    )
+                            }
+                            .buttonStyle(BorderlessButtonStyle())
+                            RoundedRectangle(cornerRadius: 1)
+                                .fill(Color("mainColor")).opacity(0.5)
+                                .frame(width: 1, height: 40)
+                            Button {
+                                selectedHousehold = household
+                                isShowingDeleteAlert.toggle()
+                            } label: {
+                                RoundedRectangle(cornerRadius: 6)
+                                    .fill(Color("buttonBackground"))
+                                    .frame(width: 38, height: 38)
+                                    .overlay(
+                                        Image(systemName: "trash.fill")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .foregroundColor(Color("accidentColor"))
+                                            .padding(8)
+                                        
+                                    )
+                                
+                            }
                         }
                     }
                 }
+                
             }
-            
             .onAppear {
                 sendHouseholdsToDefaults()
             }
@@ -109,11 +122,27 @@ struct HouseholdListView: View {
                 Button("Delete", role: .destructive) {
                     if let household = selectedHousehold {
                         stack.delete(household)
+                        if households.count == 0 {
+                            UserDefaults.standard.setValue("CHOOSE HOUSEHOLD", forKey: "lastAccessedHouse")
+                        } else if household.name == UserDefaults.standard.object(forKey: "lastAccessedHouse") as? String ?? "" {
+                            UserDefaults.standard.setValue("CHOOSE HOUSEHOLD", forKey: "lastAccessedHouse")
+                        }
                         selectedHousehold = nil
                     }
                 }
             } message: {
                 Text("Are you sure you want to remove this household? This action cannot be undone and may affect other users linked with this household.")
+            }
+            .alert("Edit Household", isPresented: $isShowingEditHousehold) {
+                TextField("New Household Name", text: $householdName)
+                Button("Save") {
+                    if let household = householdToEdit {
+                        household.name = householdName
+                        stack.save()
+                    }
+                }
+                
+                Button("Cancel", role: .cancel) { }
             }
             .navigationTitle("Households")
             .toolbar {
@@ -146,7 +175,7 @@ struct HouseholdListView: View {
     }
 }
 
-struct HouseholdView_Previews: PreviewProvider {
+struct HouseholdListView_Previews: PreviewProvider {
     static var previews: some View {
         HouseholdListView()
     }

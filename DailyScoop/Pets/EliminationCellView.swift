@@ -49,7 +49,8 @@ struct EliminationCellView: View {
     }
     
     private func formatter(for date: Date, with timeShowing: Bool = true) -> String {
-        let formatter = DateFormatter()
+        var formatter = DateFormatter()
+//        formatter.timeZone = TimeZone(identifier: "UTC")!
         formatter.dateStyle = .medium
         if timeShowing {
             formatter.timeStyle = .short

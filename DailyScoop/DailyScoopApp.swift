@@ -19,7 +19,7 @@ struct DailyScoopApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $path) {
-                HouseholdListView()
+                HouseholdView(lastAccessed: UserDefaults.standard.object(forKey: "lastAccessedHouse") as? String ?? "")
                     .navigationDestination(for: Pet.self, destination: { pet in
                         PetTabView(pet: pet, selectedTab: 0)
                     })
@@ -77,6 +77,20 @@ struct DailyScoopApp: App {
             .background(Color(uiColor: UIColor.secondarySystemGroupedBackground))
             .tint(Color("mainColor"))
         }
+    }
+    
+    func getLastHouse() -> Household? {
+        let lastAccessed = UserDefaults.standard.object(forKey: "lastAccessedHouse") as? String ?? ""
+        print("last accessed \(lastAccessed)")
+        if lastAccessed != "" {
+            let fetchedHousehold = WidgetUtilities.getHousehold(from: lastAccessed)
+            print("fetched \(fetchedHousehold)")
+            if let fetchedHousehold {
+                print("should be setting household")
+                return fetchedHousehold
+            }
+        }
+        return nil
     }
 }
 

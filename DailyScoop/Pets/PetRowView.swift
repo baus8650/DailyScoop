@@ -193,7 +193,7 @@ struct PetRowView: View {
     
     private func calculateBirthday(with birthday: Date) -> Bool {
         var calendar = Calendar.current
-        calendar.timeZone = TimeZone(identifier: "UTC")!
+//        calendar.timeZone = TimeZone(identifier: "UTC")!
         let birthdayDC = calendar.dateComponents([.month, .day], from: calendar.startOfDay(for: birthday))
         let todayDC = calendar.dateComponents([.month, .day], from: calendar.startOfDay(for: Date()))
         if birthdayDC.day == todayDC.day && birthdayDC.month == todayDC.month {

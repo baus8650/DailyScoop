@@ -195,7 +195,7 @@ struct PetDetailView: View {
     
     private func calculateYearsOld(with birthday: Date) -> String {
         var calendar = Calendar.current
-        calendar.timeZone = TimeZone(identifier: "UTC")!
+//        calendar.timeZone = TimeZone(identifier: "UTC")!
         let beginningOfDay = calendar.startOfDay(for: birthday)
         let ageComponents = calendar.dateComponents([.year, .month], from: beginningOfDay, to: .now)
         if ageComponents.year! == 0 {
