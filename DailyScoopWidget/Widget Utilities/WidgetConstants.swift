@@ -23,7 +23,7 @@ final class WidgetConstants {
     static let widgetPet = WidgetPet(
         id: "x-coredata://EB8922D9-DC06-4256-A21B-DFFD47D7E6DA/MyEntity/p3",
         name: "Penny",
-        birthday: Calendar.current.date(from: DateComponents(year: 2012, month: 9, day: 5))!,
+        birthday: Date(),
         weight: 27.5,
         eliminations: [
             WidgetElimination(
@@ -48,5 +48,4 @@ final class WidgetConstants {
                 wasAccident: false)
         ],
         picture: imageData)
-    
 }
