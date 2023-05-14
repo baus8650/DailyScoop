@@ -42,9 +42,14 @@ struct EliminationHistoryGridView: View {
                         .frame(width: 38, height: 38)
                         .foregroundColor(day.isInMonth ? (day.hasElimination ? Color("historyText") : .gray) : .gray.opacity(0.0))
                         .fontWeight(isDayToday(calendarDay: day) ? day.isInCurrentMonth ? .heavy : .regular : .regular)
+//                        .font(isDayToday(calendarDay: day) ? day.isInCurrentMonth ? .system(size: 20) : .body : .body)
                         .background(
                             RoundedRectangle(cornerRadius: 8)
+                                .stroke(isDayToday(calendarDay: day) ? day.isInCurrentMonth ? Color("mainColor") : .clear : .clear, lineWidth: isDayToday(calendarDay: day) ? day.isInCurrentMonth ? 3 : 0 : 0)
+                                .background(
+                            RoundedRectangle(cornerRadius: 8)
                                 .fill(day.hasElimination ? Color("mainColor") : .clear)
+                            )
                         )
                         .onTapGesture {
                             if day.hasElimination {

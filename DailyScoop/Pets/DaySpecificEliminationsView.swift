@@ -52,27 +52,47 @@ struct DaySpecificEliminationsView: View {
         ZStack(alignment: .center) {
             Color("background")
                 .ignoresSafeArea()
-            VStack(alignment: .center, spacing: 4) {
-                Text("\(formatter(for: dateSelected, with: false))")
-                    .font(.title2)
-                    .foregroundColor(Color("mainColor"))
-                    .fontWeight(.medium)
-                VStack(alignment: .leading) {
-                    List {
-                        ForEach(eliminations) { elimination in
-                            HStack {
-                                EliminationCellView(elimination: elimination)
-                                Spacer()
-                                HStack(spacing: 8) {
-                                    if elimination.notes != nil && elimination.notes != "" {
+            if eliminations.count > 0 {
+                VStack(alignment: .center, spacing: 4) {
+                    Text("\(formatter(for: dateSelected, with: false))")
+                        .font(.title2)
+                        .foregroundColor(Color("mainColor"))
+                        .fontWeight(.medium)
+                    VStack(alignment: .leading) {
+                        List {
+                            ForEach(eliminations) { elimination in
+                                HStack {
+                                    EliminationCellView(elimination: elimination)
+                                    Spacer()
+                                    HStack(spacing: 8) {
+                                        if elimination.notes != nil && elimination.notes != "" {
+                                            Button {
+                                                notesToShow = elimination.notes!
+                                            } label: {
+                                                RoundedRectangle(cornerRadius: 6)
+                                                    .fill(Color("buttonBackground"))
+                                                    .frame(width: 38, height: 38)
+                                                    .overlay(
+                                                        Image(systemName: "list.clipboard.fill")
+                                                            .resizable()
+                                                            .scaledToFit()
+                                                            .foregroundColor(Color("mainColor"))
+                                                            .padding(8)
+                                                        
+                                                    )
+                                            }
+                                            RoundedRectangle(cornerRadius: 1)
+                                                .fill(Color("mainColor")).opacity(0.5)
+                                                .frame(width: 1, height: 40)
+                                        }
                                         Button {
-                                            notesToShow = elimination.notes!
+                                            eliminationToEdit = elimination
                                         } label: {
                                             RoundedRectangle(cornerRadius: 6)
                                                 .fill(Color("buttonBackground"))
                                                 .frame(width: 38, height: 38)
                                                 .overlay(
-                                                    Image(systemName: "list.clipboard.fill")
+                                                    Image(systemName: "pencil")
                                                         .resizable()
                                                         .scaledToFit()
                                                         .foregroundColor(Color("mainColor"))
@@ -80,67 +100,43 @@ struct DaySpecificEliminationsView: View {
                                                     
                                                 )
                                         }
+                                        .buttonStyle(BorderlessButtonStyle())
                                         RoundedRectangle(cornerRadius: 1)
                                             .fill(Color("mainColor")).opacity(0.5)
                                             .frame(width: 1, height: 40)
+                                        Button {
+                                            eliminationToDelete = elimination
+                                            shouldShowDeleteAlert = true
+                                        } label: {
+                                            RoundedRectangle(cornerRadius: 6)
+                                                .fill(Color("buttonBackground"))
+                                                .frame(width: 38, height: 38)
+                                                .overlay(
+                                                    Image(systemName: "trash.fill")
+                                                        .resizable()
+                                                        .scaledToFit()
+                                                        .foregroundColor(Color("accidentColor"))
+                                                        .padding(8)
+                                                    
+                                                )
+                                            
+                                        }
+                                        .buttonStyle(BorderlessButtonStyle())
                                     }
-                                    Button {
-                                        eliminationToEdit = elimination
-                                    } label: {
-                                        RoundedRectangle(cornerRadius: 6)
-                                            .fill(Color("buttonBackground"))
-                                            .frame(width: 38, height: 38)
-                                            .overlay(
-                                                Image(systemName: "pencil")
-                                                    .resizable()
-                                                    .scaledToFit()
-                                                    .foregroundColor(Color("mainColor"))
-                                                    .padding(8)
-                                                
-                                            )
-                                    }
-                                    .buttonStyle(BorderlessButtonStyle())
-                                    RoundedRectangle(cornerRadius: 1)
-                                        .fill(Color("mainColor")).opacity(0.5)
-                                        .frame(width: 1, height: 40)
-                                    Button {
-                                        eliminationToDelete = elimination
-                                        shouldShowDeleteAlert = true
-                                    } label: {
-                                        RoundedRectangle(cornerRadius: 6)
-                                            .fill(Color("buttonBackground"))
-                                            .frame(width: 38, height: 38)
-                                            .overlay(
-                                                Image(systemName: "trash.fill")
-                                                    .resizable()
-                                                    .scaledToFit()
-                                                    .foregroundColor(Color("accidentColor"))
-                                                    .padding(8)
-                                                
-                                            )
-                                        
-                                    }
-                                    .buttonStyle(BorderlessButtonStyle())
                                 }
                             }
-                            //                            .swipeActions(edge: .trailing, allowsFullSwipe: true, content: {
-                            //                                Button(role: .destructive) {
-                            //                                    stack.delete(elimination)
-                            //                                } label: {
-                            //                                    Label("Delete", systemImage: "trash")
-                            //                                }
-                            //                            })
-                            //                            .swipeActions(edge: .leading, allowsFullSwipe: false, content: {
-                            //                                Button {
-                            //                                    eliminationToEdit = elimination
-                            //                                } label: {
-                            //                                    Label("Edit", systemImage: "pencil")
-                            //                                }
-                            //                            })
-                            
                         }
+                        .listStyle(.plain)
                     }
-                    .listStyle(.plain)
+                }
+            } else {
+                VStack {
+                    Text("No elimination data recorded for today!")
+                        .foregroundColor(Color("mainColor"))
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .padding(.horizontal, 24)
+                        .multilineTextAlignment(.center)
                 }
             }
             
