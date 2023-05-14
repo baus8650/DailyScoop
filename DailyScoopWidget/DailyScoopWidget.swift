@@ -28,7 +28,7 @@ struct Provider: IntentTimelineProvider {
         let currentDate = Date()
         let nextCheck = Calendar.current.date(byAdding: DateComponents(minute: 5), to: currentDate)
         if let pet {
-            let widgetPet = WidgetPet(id: pet.objectID.uriRepresentation().absoluteString, name: pet.name!, birthday: pet.birthday!, weight: pet.weight, eliminations: eliminations.map { WidgetElimination(date: $0.time!, type: $0.type, wasAccident: $0.wasAccident)})
+            let widgetPet = WidgetPet(id: pet.objectID.uriRepresentation().absoluteString, name: pet.name!, birthday: pet.birthday!, weight: pet.weight, eliminations: eliminations.map { WidgetElimination(date: $0.time!, type: $0.type, wasAccident: $0.wasAccident)}, picture: pet.picture)
             let entry = SimpleEntry(date: nextCheck!, configuration: configuration, pet: widgetPet)
             
             let timeline = Timeline(entries: [entry], policy: .atEnd)
