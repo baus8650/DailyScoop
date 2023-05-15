@@ -16,7 +16,8 @@ struct Provider: IntentTimelineProvider {
     }
 
     func getSnapshot(for configuration: PetsIntent, in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), configuration: configuration, pet: WidgetConstants.widgetPet)
+        let pet = WidgetConstants.widgetPet
+        let entry = SimpleEntry(date: Date(), configuration: configuration, pet: pet)
         
         completion(entry)
     }
